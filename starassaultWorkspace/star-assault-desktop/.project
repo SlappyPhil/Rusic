@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>star-assault-desktop</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>ANDROID_ASSETS</name>
+			<type>2</type>
+			<locationURI>ANDROID_ASSETS</locationURI>
+		</link>
+	</linkedResources>
+	<variableList>
+		<variable>
+			<name>ANDROID_ASSETS</name>
+			<value>file:/C:/Users/wilson/workspace2013/star-assault-android/assets</value>
+		</variable>
+	</variableList>
+</projectDescription>

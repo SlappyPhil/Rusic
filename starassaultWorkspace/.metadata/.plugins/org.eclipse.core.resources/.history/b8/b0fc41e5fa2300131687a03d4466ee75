@@ -1,0 +1,5 @@
+package com.starassault.model;
+
+public class Block {
+
+}

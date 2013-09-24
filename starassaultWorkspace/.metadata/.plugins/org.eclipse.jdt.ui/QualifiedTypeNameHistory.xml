@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.test.TestMain"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.backends.android.AndroidApplication"/>
+<fullyQualifiedTypeName name="com.test.TestExample"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.Gdx"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.GL20"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.ApplicationListener"/>
+<fullyQualifiedTypeName name="com.starassault.screens.GameScreen"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.World"/>
+<fullyQualifiedTypeName name="com.starassault.model.World"/>
+<fullyQualifiedTypeName name="com.starassault.view.WorldRenderer"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.Color"/>
+<fullyQualifiedTypeName name="com.starassault.StarAssaultDesktop"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.backends.jglfw.JglfwApplication"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.backends.android.AndroidApplicationConfiguration"/>
+<fullyQualifiedTypeName name="com.starassault.StarAssault"/>
+</qualifiedTypeNameHistroy>
