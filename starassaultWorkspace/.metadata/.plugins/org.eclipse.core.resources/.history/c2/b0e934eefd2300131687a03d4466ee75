@@ -1,7 +1,0 @@
-package com.starassault;
-
-public class StarAssaultDesktop {
-	public static void main(String[] args) {
-		new 
-	}
-}

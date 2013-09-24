@@ -1,9 +1,0 @@
-package com.test;
-
-import com.badlogic.gdx.backends.jglfw.JglfwApplication;
-
-public class DesktopStarter {
-	public static void main(String[] args) {
-		new JglfwApplication(new TestExample(), "title", 480, 320, false);
-	}
-}
