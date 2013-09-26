@@ -1,3 +1,9 @@
+/* 
+ * This class manages the Map class, and rendering of the map, in whatever class that might end up in
+ * 
+ * 
+ */
+
 package com.rusic_game;
 
 import com.badlogic.gdx.Screen;
