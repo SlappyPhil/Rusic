@@ -4,7 +4,7 @@
  * 
  */
 
-package com.rusic_game;
+package com.rusic_game.screens;
 
 import com.badlogic.gdx.Screen;
 

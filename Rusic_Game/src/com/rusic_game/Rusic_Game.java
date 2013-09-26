@@ -1,6 +1,7 @@
 package com.rusic_game;
 
 import com.badlogic.gdx.Game;
+import com.rusic_game.screens.GameScreen;
 
 
 public class Rusic_Game extends Game {

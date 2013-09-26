@@ -2,7 +2,7 @@
  *  This class manages the various screens, textures, sounds, user input, etc.
  */
 
-package com.rusic_game;
+package com.rusic_game.controllers;
 
 import com.badlogic.gdx.InputProcessor;
 
