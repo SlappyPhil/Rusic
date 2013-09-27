@@ -16,6 +16,6 @@ public class World {
 	}
 
 	private void createDemoWorld() {
-		player = new Player(new Vector2(1, 3));
+		player = new Player(new Vector2(7, 2));
 	}
 }

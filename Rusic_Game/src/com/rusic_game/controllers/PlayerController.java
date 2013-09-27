@@ -17,8 +17,8 @@ public class PlayerController {
 		LEFT, RIGHT, UP, DOWN
 	}
 
-	private World 	world;
-	private Player 	player;
+	private World world;
+	private Player player;
 
 	static Map<Keys, Boolean> keys = new HashMap<PlayerController.Keys, Boolean>();
 	static {

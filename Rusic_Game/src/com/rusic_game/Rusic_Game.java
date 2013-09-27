@@ -5,21 +5,23 @@ import com.rusic_game.screens.GameScreen;
 
 
 public class Rusic_Game extends Game {
+
 	
 	@Override
-	public void create() {		
-		setScreen(new GameScreen()); // When the game is run, creates new GameScreen and displays it 
+	public void create() {
+		setScreen(new GameScreen(this)); // When the game is run, creates new GameScreen and displays it 
 	}
 
 	@Override
 	public void dispose() {
 		
 	}
-
+/*
 	@Override
 	public void render() {		
 		
 	}
+*/
 
 	@Override
 	public void resize(int width, int height) {

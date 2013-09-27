@@ -14,15 +14,20 @@ import com.badlogic.gdx.graphics.GL20;
 import com.rusic_game.controllers.PlayerController;
 import com.rusic_game.models.World;
 import com.rusic_game.view.WorldRenderer;
+import com.rusic_game.Rusic_Game;
 
 public class GameScreen implements Screen, InputProcessor {
 
 	private World world;
 	private WorldRenderer renderer;
 	private PlayerController controller;
-
 	private int width, height;
-
+	private Rusic_Game game;
+	
+	public GameScreen(Rusic_Game game) {
+		this.game = game;
+	}
+	
 	@Override
 	public void show() {
 		world = new World();
@@ -35,7 +40,6 @@ public class GameScreen implements Screen, InputProcessor {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		controller.update(delta);
 		renderer.render();
 	}

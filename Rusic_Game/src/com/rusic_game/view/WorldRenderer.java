@@ -50,7 +50,7 @@ public class WorldRenderer {
 	}
 
 	private void loadTextures() {
-		playerTexture = new Texture(Gdx.files.internal("images/player-01.png"));
+		playerTexture = new Texture(Gdx.files.internal("images/player_01.png"));
 	}
 
 	public void render() {
