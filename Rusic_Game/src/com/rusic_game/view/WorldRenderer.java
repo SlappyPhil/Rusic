@@ -39,13 +39,13 @@ public class WorldRenderer {
 		ppuY = (float) height / CAMERA_HEIGHT;
 	}
 
-	public WorldRenderer(World world, boolean debug) {
+	public WorldRenderer(World world, SpriteBatch spriteBatch, boolean debug) {
 		this.world = world;
 		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
 		this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
 		this.cam.update();
 		this.debug = debug;
-		spriteBatch = new SpriteBatch();
+		this.spriteBatch = spriteBatch;
 		loadTextures();
 	}
 

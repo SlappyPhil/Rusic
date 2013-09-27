@@ -48,7 +48,7 @@ public class PlayerController {
 	}
 
 	public void downPressed() {
-		keys.get(keys.put(Keys.DOWN, false));
+		keys.get(keys.put(Keys.DOWN, true));
 	}
 
 	public void leftReleased() {
@@ -81,18 +81,46 @@ public class PlayerController {
 			player.getVelocity().x = -Player.SPEED;
 		}
 		if (keys.get(Keys.RIGHT)) {
-			// left is pressed
+			// right is pressed
 			player.setState(State.MOVING);
 			player.getVelocity().x = Player.SPEED;
 		}
-		// need to check if both or none direction are pressed, then player is idle
-		if ((keys.get(Keys.LEFT) && keys.get(Keys.RIGHT)) ||
-				(!keys.get(Keys.LEFT) && !(keys.get(Keys.RIGHT)))) {
+		if (keys.get(Keys.UP)) {
+			// up is pressed
+			player.setState(State.MOVING);
+			player.getVelocity().y = Player.SPEED;
+		}
+		if (keys.get(Keys.DOWN)) {
+			// down is pressed
+			player.setState(State.MOVING);
+			player.getVelocity().y = -Player.SPEED;
+		}
+		//check if both directions are pressed
+		if (keys.get(Keys.LEFT) && keys.get(Keys.RIGHT)) {
+			// acceleration is 0 on the x
+			player.getAcceleration().x = 0;
+			// horizontal speed is 0
+			player.getVelocity().x = 0;
+		}
+		if (keys.get(Keys.UP) && keys.get(Keys.DOWN)) {
+			//acceleration is 0 on the y
+			player.getAcceleration().y = 0;
+			// vertical speed is 0
+			player.getVelocity().y = 0;
+		}
+		//check if no keys are pressed, or both directions are pressed and the other 2 aren't
+		if ((!keys.get(Keys.LEFT) && !keys.get(Keys.RIGHT) && !keys.get(Keys.UP) && !keys.get(Keys.DOWN)) ||
+			(keys.get(Keys.LEFT) && keys.get(Keys.RIGHT) && !keys.get(Keys.UP) && !keys.get(Keys.DOWN)) ||
+			(keys.get(Keys.UP) && keys.get(Keys.DOWN) && !keys.get(Keys.RIGHT) && !keys.get(Keys.LEFT))) {
 			player.setState(State.IDLE);
 			// acceleration is 0 on the x
 			player.getAcceleration().x = 0;
 			// horizontal speed is 0
 			player.getVelocity().x = 0;
+			//acceleration is 0 on the y
+			player.getAcceleration().y = 0;
+			// vertical speed is 0
+			player.getVelocity().y = 0;
 		}
 	}
 

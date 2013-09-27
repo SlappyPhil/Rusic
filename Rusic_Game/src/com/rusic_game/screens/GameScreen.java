@@ -11,6 +11,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rusic_game.controllers.PlayerController;
 import com.rusic_game.models.World;
 import com.rusic_game.view.WorldRenderer;
@@ -22,16 +23,18 @@ public class GameScreen implements Screen, InputProcessor {
 	private WorldRenderer renderer;
 	private PlayerController controller;
 	private int width, height;
+	private SpriteBatch spriteBatch;
 	private Rusic_Game game;
 	
-	public GameScreen(Rusic_Game game) {
+	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.game = game;
+		this.spriteBatch = spriteBatch;
 	}
 	
 	@Override
 	public void show() {
 		world = new World();
-		renderer = new WorldRenderer(world, false);
+		renderer = new WorldRenderer(world, spriteBatch, false);
 		controller = new PlayerController(world);
 		Gdx.input.setInputProcessor(this);
 	}
@@ -89,13 +92,13 @@ public class GameScreen implements Screen, InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 		if (keycode == Keys.LEFT)
-			controller.leftPressed();
+			controller.leftReleased();
 		if (keycode == Keys.RIGHT)
-			controller.rightPressed();
+			controller.rightReleased();
 		if (keycode == Keys.UP)
-			controller.upPressed();
+			controller.upReleased();
 		if (keycode == Keys.DOWN)
-			controller.downPressed();
+			controller.downReleased();
 		return true;
 	}
 
