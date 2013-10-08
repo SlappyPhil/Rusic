@@ -17,7 +17,6 @@ public class PlayerController {
 		LEFT, RIGHT, UP, DOWN
 	}
 
-	private World world;
 	private Player player;
 
 	static Map<Keys, Boolean> keys = new HashMap<PlayerController.Keys, Boolean>();
@@ -29,7 +28,6 @@ public class PlayerController {
 	};
 
 	public PlayerController(World world) {
-		this.world = world;
 		this.player = world.getPlayer();
 	}
 

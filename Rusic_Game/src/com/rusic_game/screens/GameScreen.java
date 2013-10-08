@@ -24,13 +24,10 @@ public class GameScreen implements Screen, InputProcessor {
 	private PlayerController controller;
 	private int width, height;
 	private SpriteBatch spriteBatch;
-	private Rusic_Game game;
-	
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
-		this.game = game;
 		this.spriteBatch = spriteBatch;
 	}
-	
+
 	@Override
 	public void show() {
 		world = new World();
@@ -45,6 +42,8 @@ public class GameScreen implements Screen, InputProcessor {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		controller.update(delta);
 		renderer.render();
+		
+		
 	}
 
 	@Override
