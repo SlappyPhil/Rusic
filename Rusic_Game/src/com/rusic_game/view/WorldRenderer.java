@@ -66,6 +66,7 @@ public class WorldRenderer {
 		spriteBatch.draw(playerTexture, player.getPosition().x * ppuX,
 				player.getPosition().y * ppuY, Player.getSize() * ppuX, Player.getSize()
 						* ppuY);
+		
 	}
 
 	private void drawDebug() {
@@ -79,6 +80,9 @@ public class WorldRenderer {
 		float y1 = player.getPosition().y + rect.y;
 		debugRenderer.setColor(new Color(0, 1, 0, 1));
 		debugRenderer.rect(x1, y1, rect.width, rect.height);
+		
+		
+		
 		debugRenderer.end();
 	}
 }

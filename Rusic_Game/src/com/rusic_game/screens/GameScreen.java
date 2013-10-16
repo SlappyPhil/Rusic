@@ -12,6 +12,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.rusic_game.controllers.PlayerController;
 import com.rusic_game.models.World;
 import com.rusic_game.view.WorldRenderer;
@@ -34,8 +36,8 @@ public class GameScreen implements Screen, InputProcessor {
 		renderer = new WorldRenderer(world, spriteBatch, false);
 		controller = new PlayerController(world);
 		Gdx.input.setInputProcessor(this);
+		
 	}
-
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
@@ -109,10 +111,16 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
-		if (x < width / 2 && y > height / 2) {
+		if (x > 0 &&  x < width/12 && y > 10*height/12 && y < 11*height/12) {
 			controller.leftPressed();
 		}
-		if (x > width / 2 && y > height / 2) {
+		if (x > width/12 && x < 2*width/12 && y > 9*height /12 && y <10*height/12) {
+			controller.upPressed();
+		}
+		if (x > width/12 && x < 2*width/12 && y > 11* height / 12 && y < height) {
+			controller.downPressed();
+		}
+		if (x > 2*width/12 && x < 3*width/12 && y > 10* height / 12 && y < 11*height/12) {
 			controller.rightPressed();
 		}
 		return true;
@@ -120,10 +128,16 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean touchUp(int x, int y, int pointer, int button) {
-		if (x < width / 2 && y > height / 2) {
+		if (x > 0 &&  x < width/12 && y > 10*height/12 && y < 11*height/12) {
 			controller.leftReleased();
 		}
-		if (x > width / 2 && y > height / 2) {
+		if (x > width/12 && x < 2*width/12 && y > 9*height /12 && y <10*height/12) {
+			controller.upReleased();
+		}
+		if (x > width/12 && x < 2*width/12 && y > 11* height / 12 && y < height) {
+			controller.downReleased();
+		}
+		if (x > 2*width/12 && x < 3*width/12 && y > 10* height / 12 && y < 11*height/12) {
 			controller.rightReleased();
 		}
 		return true;

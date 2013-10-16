@@ -20,7 +20,6 @@ public class SplashScreen implements Screen{
 	public SplashScreen(Rusic_Game game,SpriteBatch spriteBatch) {
 		this.game = game;
 		this.spriteBatch = spriteBatch;
-		
 	}
 
 
