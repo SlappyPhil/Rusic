@@ -24,6 +24,7 @@ public class WorldRenderer {
 
 	/** Textures **/
 	private Texture playerTexture;
+	private Texture dpadTexture;
 
 	private SpriteBatch spriteBatch;
 	private boolean debug = false;
@@ -51,11 +52,13 @@ public class WorldRenderer {
 
 	private void loadTextures() {
 		playerTexture = new Texture(Gdx.files.internal("images/musicNoteCharacter3.png"));
+		dpadTexture = new Texture(Gdx.files.internal("images/dpadTest.png"));
 	}
 
 	public void render() {
 		spriteBatch.begin();
 		drawPlayer();
+		drawDpad();
 		spriteBatch.end();
 		if (debug)
 			drawDebug();
@@ -67,6 +70,10 @@ public class WorldRenderer {
 				player.getPosition().y * ppuY, Player.getSize() * ppuX, Player.getSize()
 						* ppuY);
 		
+	}
+	
+	private void drawDpad(){ // Draws test dpad (NOT TIED TO HARDCODING IN GAMESCREEN CLASS)
+		spriteBatch.draw(dpadTexture, 0, height/4, width/4, height/4);
 	}
 
 	private void drawDebug() {
