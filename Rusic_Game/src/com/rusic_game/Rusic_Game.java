@@ -1,6 +1,7 @@
 package com.rusic_game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rusic_game.screens.GameScreen;
 import com.rusic_game.screens.MainScreen;
@@ -20,6 +21,7 @@ public class Rusic_Game extends Game {
 
 	@Override
 	public void create() {
+		Texture.setEnforcePotImages(false);
 		spriteBatch = new SpriteBatch();
 		splashScreen = new SplashScreen(this, spriteBatch);
 		mainScreen = new MainScreen(this, spriteBatch);

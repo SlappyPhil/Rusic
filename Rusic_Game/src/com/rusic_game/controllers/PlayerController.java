@@ -9,7 +9,8 @@ import java.util.Map;
 
 import com.rusic_game.models.Player;
 import com.rusic_game.models.Player.State;
-import com.rusic_game.models.World;
+//import com.rusic_game.models.World;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class PlayerController {
 
@@ -28,7 +29,7 @@ public class PlayerController {
 	};
 
 	public PlayerController(World world) {
-		this.player = world.getPlayer();
+		//this.player = world.getPlayer();
 	}
 
 	// ** Key presses and touches **************** //
