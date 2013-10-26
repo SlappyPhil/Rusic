@@ -12,6 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox.SelectBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -25,12 +31,15 @@ public class MusicSelectScreen implements Screen{
 	private Texture mainScreenTexture;
 	private int width, height;
 	private TextButton buttonPlay;
+	private SelectBox musicSelectBox;
 	private BitmapFont white;
 	private Skin skin;
 	private Table table;
 	private Stage stage;
 	private TextureAtlas atlas;
 	private Label heading;
+	private SelectBox.SelectBoxStyle style;
+	private ScrollPane.ScrollPaneStyle scrollStyle;
 	
 	
 	//CONSTRUCTOR
@@ -82,6 +91,13 @@ public class MusicSelectScreen implements Screen{
 		textButtonStyle.font = white;
 		textButtonStyle.fontColor = Color.BLACK;
 		buttonPlay = new TextButton("START", textButtonStyle);
+		String[] musicArray = {"A","B","C","D","E","F","G","H","I","J","K","L"}; // test array for selectbox
+		ScrollPane.ScrollPaneStyle scrollStyle = new ScrollPane.ScrollPaneStyle(skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"));
+		List.ListStyle listStyle = new List.ListStyle(white, Color.BLACK, Color.GRAY, skin.getDrawable("button.up"));
+		SelectBox.SelectBoxStyle style = new SelectBox.SelectBoxStyle(white, Color.BLACK, skin.getDrawable("button.up"), scrollStyle, listStyle);
+		
+		musicSelectBox = new SelectBox(musicArray, style);
+
 		
 		
 		//PLAY BUTTON FUNCTIONALITY
@@ -92,7 +108,7 @@ public class MusicSelectScreen implements Screen{
     }
     
     public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            game.setScreen(game.musicSelectScreen);
+            game.setScreen(game.gameScreen);
             
     }
 });
@@ -113,6 +129,7 @@ public class MusicSelectScreen implements Screen{
 		//*****ADD EVERYTHING TO TABLE******
 		table.add(heading).spaceBottom(15).row();
 		table.add(buttonPlay).spaceBottom(15).row();
+		table.add(musicSelectBox).spaceBottom(15).row();
 
 		
 		table.debug();
