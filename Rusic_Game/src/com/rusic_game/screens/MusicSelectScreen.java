@@ -2,44 +2,62 @@ package com.rusic_game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.rusic_game.Rusic_Game;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.rusic_game.Rusic_Game;
 
-public class MainScreen implements Screen, InputProcessor {
-	private Stage stage;
-	private Skin skin;
-	private TextureAtlas atlas;
-	private Table table;
+public class MusicSelectScreen implements Screen{
+
 	private Rusic_Game game;
 	private SpriteBatch spriteBatch;
 	private Texture mainScreenTexture;
 	private int width, height;
-	private TextButton buttonPlay,buttonSettings;
+	private TextButton buttonPlay;
 	private BitmapFont white;
+	private Skin skin;
+	private Table table;
+	private Stage stage;
+	private TextureAtlas atlas;
 	private Label heading;
-
+	
 	
 	//CONSTRUCTOR
-	public MainScreen(Rusic_Game game, SpriteBatch spriteBatch) {
+	public MusicSelectScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.game = game;
 		this.spriteBatch = spriteBatch;
 	}
-
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		spriteBatch.begin();
+		spriteBatch.draw(mainScreenTexture, 0, 0, width, height);
+		spriteBatch.end();
+		
+		//RENDER STAGE
+		stage.act(delta);
+		stage.draw();
+	}
+	@Override
+	public void resize(int width, int height) {
+		this.width = width;
+		this.height= height;
+		
+		
+	}
 	@Override
 	public void show() {
 		mainScreenTexture = new Texture(Gdx.files.internal("images/MainScreen.png"));
@@ -63,8 +81,7 @@ public class MainScreen implements Screen, InputProcessor {
 		textButtonStyle.pressedOffsetY = -1;
 		textButtonStyle.font = white;
 		textButtonStyle.fontColor = Color.BLACK;
-		buttonPlay = new TextButton("PLAY", textButtonStyle);
-		buttonSettings = new TextButton("SETTINGS", textButtonStyle);
+		buttonPlay = new TextButton("START", textButtonStyle);
 		
 		
 		//PLAY BUTTON FUNCTIONALITY
@@ -79,23 +96,11 @@ public class MainScreen implements Screen, InputProcessor {
             
     }
 });
-		//SETTINGS BUTTON FUNCTIONALITY
-		buttonSettings.addListener(new InputListener(){
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-            
-            return true;
-    }
-    
-    public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            
-    	game.setScreen(game.settingsScreen);
-            
-            
-    }
-});
+
+		
 		//PAD MARGINS BUTTONS
 		buttonPlay.pad(20);
-		buttonSettings.pad(20);
+
 		
 		
 		/*HEADING IF NEEDED******
@@ -108,104 +113,28 @@ public class MainScreen implements Screen, InputProcessor {
 		//*****ADD EVERYTHING TO TABLE******
 		table.add(heading).spaceBottom(15).row();
 		table.add(buttonPlay).spaceBottom(15).row();
-		table.add(buttonSettings).spaceBottom(15).row();
+
 		
 		table.debug();
 		
 		//ADD TABLE (aka ACTOR) TO STAGE
 		stage.addActor(table);
-		
+	
 	}
-	@Override
-	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		spriteBatch.begin();
-		spriteBatch.draw(mainScreenTexture, 0, 0, width, height);
-		spriteBatch.end();
-		
-		//RENDER STAGE
-		stage.act(delta);
-		stage.draw();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		this.width = width;
-		this.height = height;
-	}
-
 	@Override
 	public void hide() {
-		dispose();
-
+		
 	}
-
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-
+		
 	}
-
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-
+		
 	}
-
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		
 	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }
