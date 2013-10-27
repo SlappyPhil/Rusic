@@ -48,7 +48,7 @@ public class Player extends InputAdapter  {
         }
 
         public void update() {
-                body.applyForceToCenter(velocity);
+                body.applyForceToCenter(velocity, true);
         }
 
         
