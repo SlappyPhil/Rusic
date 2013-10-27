@@ -1,4 +1,4 @@
-package android.rusic_game.audio;
+package com.rusic_game.audio;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
