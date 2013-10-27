@@ -5,5 +5,7 @@
 	<classpathentry exported="true" kind="lib" path="libs/gdx.jar" sourcepath="libs/gdx-sources.jar"/>
 	<classpathentry kind="lib" path="libs/tween-engine-api.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Rusic_Game-android"/>
+	<classpathentry kind="lib" path="libs/gdx-audio-natives.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-audio.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

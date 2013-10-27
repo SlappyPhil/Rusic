@@ -124,6 +124,5 @@ public class PlayerController {
 		if(player.getAcceleration().x == 0 && player.getAcceleration().y == 0 && player.getVelocity().x == 0 && player.getVelocity().y == 0) {
 			player.setState(State.IDLE);
 		}
-		System.out.println(player.getState());
 	}
 }

@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.rusic_game.audio.AudioAnalyzer;
 import com.rusic_game.controllers.PlayerController;
 import com.rusic_game.models.World;
 import com.rusic_game.view.WorldRenderer;
@@ -24,6 +25,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private World world;
 	private WorldRenderer renderer;
 	private PlayerController controller;
+	private AudioAnalyzer analyzer;
 	private int width, height;
 	private SpriteBatch spriteBatch;
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
@@ -32,9 +34,11 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public void show() {
+		analyzer = new AudioAnalyzer("audio/tester.mp3");
 		world = new World();
 		renderer = new WorldRenderer(world, spriteBatch, false);
 		controller = new PlayerController(world);
+		analyzer.play();
 		Gdx.input.setInputProcessor(this);
 		
 	}
@@ -44,8 +48,6 @@ public class GameScreen implements Screen, InputProcessor {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		controller.update(delta);
 		renderer.render();
-		
-		
 	}
 
 	@Override
@@ -57,6 +59,7 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public void hide() {
+		analyzer.stop();
 		Gdx.input.setInputProcessor(null);
 	}
 
@@ -72,6 +75,7 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public void dispose() {
+		analyzer.dispose();
 		Gdx.input.setInputProcessor(null);
 	}
 
