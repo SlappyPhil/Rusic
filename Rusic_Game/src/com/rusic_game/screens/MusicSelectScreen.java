@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.rusic_game.MusicExtractionActivity;
 import com.rusic_game.Rusic_Game;
 
 public class MusicSelectScreen implements Screen{
@@ -40,12 +41,24 @@ public class MusicSelectScreen implements Screen{
 	private Label heading;
 	private SelectBox.SelectBoxStyle style;
 	private ScrollPane.ScrollPaneStyle scrollStyle;
+	private MusicExtractionActivity musicExtraction;
 	
+	private String[] musicArray;
 	
 	//CONSTRUCTOR
 	public MusicSelectScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.game = game;
 		this.spriteBatch = spriteBatch;
+		
+		switch(Gdx.app.getType()) {
+		   case Android:
+		       // android specific code
+			   musicExtraction = new MusicExtractionActivity();
+			   musicArray = musicExtraction.getArray();
+			   musicExtraction.kill_activity();
+		   case Desktop:
+			   musicArray = null; // insert default song code
+		}
 	}
 	@Override
 	public void render(float delta) {
