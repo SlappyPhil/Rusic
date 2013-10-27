@@ -107,7 +107,7 @@ public class MusicSelectScreen implements Screen{
 		String[] musicArray = {"A","B","C","D","E","F","G","H","I","J","K","L"}; // test array for selectbox
 		ScrollPane.ScrollPaneStyle scrollStyle = new ScrollPane.ScrollPaneStyle(skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"));
 		List.ListStyle listStyle = new List.ListStyle(white, Color.BLACK, Color.GRAY, skin.getDrawable("button.up"));
-		SelectBox.SelectBoxStyle style = new SelectBox.SelectBoxStyle(white, Color.BLACK, skin.getDrawable("button.up"), scrollStyle, listStyle);
+		//SelectBox.SelectBoxStyle style = new SelectBox.SelectBoxStyle(white, Color.BLACK, skin.getDrawable("button.up"), scrollStyle, listStyle);
 		
 		musicSelectBox = new SelectBox(musicArray, style);
 

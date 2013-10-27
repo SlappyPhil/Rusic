@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rusic_game.Rusic_Game;
 import com.rusic_game.models.Player;
+import com.rusic_game.audio.AudioAnalyzer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -48,6 +49,7 @@ public class GameScreen implements Screen {
 	private Player player;
 	private Vector3 bottomLeft, bottomRight;
 	private Rusic_Game game;
+	private AudioAnalyzer analyzer;
 	
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.spriteBatch = spriteBatch;
@@ -57,6 +59,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		analyzer = new AudioAnalyzer("audio/tester.mp3");
+		analyzer.play();
 		world = new World(new Vector2(0, -19), true);
 		debugRenderer = new Box2DDebugRenderer();
 		camera = new OrthographicCamera();
@@ -212,6 +216,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void hide() {
+		analyzer.stop();
 		Gdx.input.setInputProcessor(null);
 	}
 
@@ -227,6 +232,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		analyzer.dispose();
 		world.dispose();
 		debugRenderer.dispose();
 		Gdx.input.setInputProcessor(null);
