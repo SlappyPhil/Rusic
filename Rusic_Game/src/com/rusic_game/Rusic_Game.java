@@ -1,15 +1,13 @@
 package com.rusic_game;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Application;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rusic_game.screens.GameScreen;
 import com.rusic_game.screens.MainScreen;
-import com.rusic_game.screens.MusicSelectScreen;
 import com.rusic_game.screens.SettingScreen;
 import com.rusic_game.screens.SplashScreen;
+
 
 public class Rusic_Game extends Game {
 
@@ -18,18 +16,18 @@ public class Rusic_Game extends Game {
 	public GameScreen gameScreen;
 	public SplashScreen splashScreen;
 	public SettingScreen settingsScreen;
-	public MusicSelectScreen musicSelectScreen;
+	
 
 
 	@Override
 	public void create() {
+		Texture.setEnforcePotImages(false);
 		spriteBatch = new SpriteBatch();
 		splashScreen = new SplashScreen(this, spriteBatch);
 		mainScreen = new MainScreen(this, spriteBatch);
 		gameScreen = new GameScreen(this, spriteBatch);
 		settingsScreen = new SettingScreen(this, spriteBatch);
 		setScreen(splashScreen); // When the game is run, creates new MainScreen and displays it 
-		musicSelectScreen = new MusicSelectScreen(this, spriteBatch);
 	}
 
 	@Override

@@ -3,7 +3,6 @@
 	<name>Rusic_Game-desktop</name>
 	<comment></comment>
 	<projects>
-		<project>Rusic_Game-android</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -19,7 +18,7 @@
 		<link>
 			<name>assets</name>
 			<type>2</type>
-			<locationURI>WORKSPACE_LOC/Rusic_Game-android/assets</locationURI>
+			<location>/Users/Tyler/Documents/workspace/Rusic_Game-android/assets</location>
 		</link>
 	</linkedResources>
 </projectDescription>

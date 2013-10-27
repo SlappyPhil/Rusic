@@ -1,71 +1,124 @@
 package com.rusic_game.models;
 
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactFilter;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
-public class Player {
+public class Player extends InputAdapter  {
 
-		public enum State {
-			IDLE, MOVING, POWEREDUP1, POWEREDUP2, POWEREDUP3, DYING
-		}
+        private Body body;
+        private Fixture fixture;
+        public final float WIDTH, HEIGHT;
+        private Vector2 velocity = new Vector2();
+        private float movementForce = 400, airResistance = 5, jumpPower = 40;
 
-		public static final float SPEED = 4f; // unit per second
-		private static final float SIZE = 0.5f; // half a unit
+        public Player(World world, float x, float y, float width) {
+                WIDTH = width;
+                HEIGHT = width * 2;
 
-		private Vector2 position = new Vector2();
-		private Vector2 acceleration = new Vector2();
-		private Vector2 velocity = new Vector2();
-		private Rectangle bounds = new Rectangle();
+                BodyDef bodyDef = new BodyDef();
+                bodyDef.type = BodyType.DynamicBody;
+                bodyDef.position.set(x, y);
+                bodyDef.fixedRotation = true;
+
+                PolygonShape shape = new PolygonShape();
+                shape.setAsBox(width / 2, HEIGHT / 2);
+
+                FixtureDef fixtureDef = new FixtureDef();
+                fixtureDef.shape = shape;
+                fixtureDef.restitution = .5f;
+                fixtureDef.friction = .5f;
+                fixtureDef.density = 3;
+
+                body = world.createBody(bodyDef);
+                fixture = body.createFixture(fixtureDef);
+                shape.dispose();
+        }
+
+        public void update() {
+                body.applyForceToCenter(velocity);
+        }
+
+        
+
+      
+
+
+        @Override
+        public boolean keyDown(int keycode) {
+                switch(keycode) {
+                case Keys.LEFT:
+                        velocity.x = -movementForce;
+                        break;
+                case Keys.RIGHT:
+                        velocity.x = movementForce;
+                        break;
+                case Keys.UP:
+                    velocity.y = movementForce;
+                    break;
+              //  case Keys.DOWN:
+                //    velocity.y = -movementForce;
+                //    break;
+               
+                // TODO remove this case
+   
+                default:
+                        return false;
+                }
+                return true;
+        }
+
+        @Override
+        public boolean keyUp(int keycode) {
+        	switch(keycode) {
+            case Keys.LEFT:
+                    velocity.x = airResistance;
+                    break;
+            case Keys.RIGHT:
+                    velocity.x = airResistance;
+                    break;
+            case Keys.UP:
+                velocity.y = airResistance;
+                break;
+          //  case Keys.DOWN:
+            //    velocity.y = 0;
+              //  break;
+           
+            // TODO remove this case
+
+            default:
+                    return false;
+            }
+            return true;
+    }
+
+        public float getRestitution() {
+                return fixture.getRestitution();
+        }
+
+        public void setRestitution(float restitution) {
+                fixture.setRestitution(restitution);
+        }
+
+        public Body getBody() {
+                return body;
+        }
+
+        public Fixture getFixture() {
+                return fixture;
+        }
+
 		
-		State state = State.IDLE;
-		float stateTime = 0;
-
-		public Player(Vector2 position) {
-			this.position = position;
-			this.bounds.height = SIZE;
-			this.bounds.width = SIZE;
-		}
-
-		public void setState(State newState) {
-			this.state = newState;
-		}
-
-		public void update(float delta) {
-			stateTime += delta;
-			position.add(velocity.cpy().mul(delta));
-		}
-
-		public static float getSpeed() {
-			return SPEED;
-		}
-
-		public static float getSize() {
-			return SIZE;
-		}
-
-		public Vector2 getPosition() {
-			return position;
-		}
-
-		public Vector2 getAcceleration() {
-			return acceleration;
-		}
-
-		public Vector2 getVelocity() {
-			return velocity;
-		}
-
-		public Rectangle getBounds() {
-			return bounds;
-		}
-
-		public State getState() {
-			return state;
-		}
-
-		public float getStateTime() {
-			return stateTime;
-		}
-
-	
 }
