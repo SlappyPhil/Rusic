@@ -18,11 +18,13 @@ public class Rusic_Game extends Game {
 	public SplashScreen splashScreen;
 	public SettingScreen settingsScreen;
 	public MusicSelectScreen musicSelectScreen;
-	
-
+	public String[] musicinfo;
+	public String[] musicpath;
+	public boolean isAndroid;
 
 	@Override
 	public void create() {
+		
 		Texture.setEnforcePotImages(false);
 		spriteBatch = new SpriteBatch();
 		splashScreen = new SplashScreen(this, spriteBatch);
@@ -30,7 +32,13 @@ public class Rusic_Game extends Game {
 		gameScreen = new GameScreen(this, spriteBatch);
 		settingsScreen = new SettingScreen(this, spriteBatch);
 		musicSelectScreen = new MusicSelectScreen(this, spriteBatch);
-		setScreen(splashScreen); // When the game is run, creates new MainScreen and displays it 
+		setScreen(splashScreen);
+	}
+	
+	public Rusic_Game(String[] musicpath, String[] musicinfo,boolean isAndroid){
+		this.musicinfo=musicinfo;
+		this.musicpath=musicpath;
+		this.isAndroid=isAndroid;
 	}
 
 	@Override
@@ -54,4 +62,6 @@ public class Rusic_Game extends Game {
 	@Override
 	public void resume() {
 	}
+
+	
 }

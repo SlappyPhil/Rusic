@@ -2,10 +2,12 @@ package com.rusic_game.audio;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-
+//This class is NOT used for music playback, AudioAnalyzer does that. This class
+//may be used for playing preloaded music tracks e.g. menu audio.  
 
 public class MusicPlayback {
         private Music selected_music;
+        public String musicpath;
         
         public float getPlaybackTime(){
                 return selected_music.getPosition();
@@ -14,7 +16,7 @@ public class MusicPlayback {
                 return selected_music.isPlaying();
         }
         public void loadMusic(){
-                selected_music = Gdx.audio.newMusic(Gdx.files.internal("data/myfile.mp3"));
+                selected_music = Gdx.audio.newMusic(Gdx.files.internal(musicpath));
         }
         public void startMusic(){
                 selected_music.setVolume(1.0f);     // sets the volume, max is 1.0f

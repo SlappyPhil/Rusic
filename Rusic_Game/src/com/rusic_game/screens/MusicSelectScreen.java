@@ -22,7 +22,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.rusic_game.MusicExtractionActivity;
 import com.rusic_game.Rusic_Game;
 
 public class MusicSelectScreen implements Screen{
@@ -41,23 +40,23 @@ public class MusicSelectScreen implements Screen{
 	private Label heading;
 	private SelectBox.SelectBoxStyle style;
 	private ScrollPane.ScrollPaneStyle scrollStyle;
-	private MusicExtractionActivity musicExtraction;
 	
-	private String[] musicArray;
+	private String[] musicpath;
+	private String[] musicinfo;
 	
 	//CONSTRUCTOR
 	public MusicSelectScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.game = game;
 		this.spriteBatch = spriteBatch;
-		
-		switch(Gdx.app.getType()) {
-		   case Android:
-		       // android specific code
-			   musicExtraction = new MusicExtractionActivity();
-			   musicArray = musicExtraction.getArray();
-			   musicExtraction.kill_activity();
-		   case Desktop:
-			   musicArray = null; // insert default song code
+		if(game.isAndroid==true){
+			musicpath = game.musicpath;
+			musicinfo = game.musicinfo;
+		}
+		else{
+			musicpath= new String[1];
+			musicinfo= new String[1];
+			musicpath[0]="";
+			musicinfo[0]="Test Song - Unknown Album";
 		}
 	}
 	@Override
@@ -104,12 +103,11 @@ public class MusicSelectScreen implements Screen{
 		textButtonStyle.font = white;
 		textButtonStyle.fontColor = Color.BLACK;
 		buttonPlay = new TextButton("START", textButtonStyle);
-		String[] musicArray = {"A","B","C","D","E","F","G","H","I","J","K","L"}; // test array for selectbox
 		ScrollPane.ScrollPaneStyle scrollStyle = new ScrollPane.ScrollPaneStyle(skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"));
 		List.ListStyle listStyle = new List.ListStyle(white, Color.BLACK, Color.GRAY, skin.getDrawable("button.up"));
 		style = new SelectBox.SelectBoxStyle(white, Color.BLACK, skin.getDrawable("button.up"), scrollStyle, listStyle);
 		
-		musicSelectBox = new SelectBox(musicArray, style);
+		musicSelectBox = new SelectBox(musicinfo, style);
 
 		
 		
