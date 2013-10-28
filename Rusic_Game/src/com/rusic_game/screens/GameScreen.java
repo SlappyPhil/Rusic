@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rusic_game.Rusic_Game;
 import com.rusic_game.models.Player;
+import com.rusic_game.models.Visualizer;
 import com.rusic_game.audio.AudioAnalyzer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -47,6 +48,7 @@ public class GameScreen implements Screen {
 	private final float TIMESTEP = 1/60f;
 	private final int VELOCITYITERATIONS = 8, POSITIONITERATIONS = 3;
 	private Player player;
+	private Visualizer visualizer;
 	private Vector3 bottomLeft, bottomRight;
 	private Rusic_Game game;
 	private AudioAnalyzer analyzer;
@@ -60,14 +62,13 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		analyzer = new AudioAnalyzer("audio/tester.mp3");
-		analyzer.play();
 		world = new World(new Vector2(0, -19), true);
 		debugRenderer = new Box2DDebugRenderer();
 		camera = new OrthographicCamera();
 		//renderer = new WorldRenderer(world, spriteBatch, false);
 		
 		 player = new Player(world, 0, 1, 1);
-        
+         visualizer = new Visualizer(world, analyzer);
          
          spriteBatch = new SpriteBatch();
          Gdx.input.setInputProcessor(new InputMultiplexer(new InputAdapter() {
@@ -182,6 +183,7 @@ public class GameScreen implements Screen {
 		world.createBody(charDef).createFixture(fixtureDef);
 		leftShape.dispose();
 		*/
+		analyzer.play();
 	}
 
 	@Override
@@ -189,8 +191,8 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		
-     player.update();
+		visualizer.update();
+		player.update();
      
 		debugRenderer.render(world, camera.combined);
 		

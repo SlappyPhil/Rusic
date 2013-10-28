@@ -18,7 +18,7 @@
 		<link>
 			<name>assets</name>
 			<type>2</type>
-			<location>C:/Users/Jonathan/Documents/GitHub/RusicReset2/Rusic_Game-android/assets</location>
+			<locationURI>WORKSPACE_LOC/Rusic_Game-android/assets</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
