@@ -35,6 +35,10 @@ public class Rusic_Game extends Game {
 		setScreen(splashScreen);
 	}
 	
+	public Rusic_Game() {
+		
+	}
+	
 	public Rusic_Game(String[] musicpath, String[] musicinfo,boolean isAndroid){
 		this.musicinfo=musicinfo;
 		this.musicpath=musicpath;
