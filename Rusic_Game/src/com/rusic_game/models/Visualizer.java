@@ -65,6 +65,7 @@ public class Visualizer {
 			ceilingBars[i] = world.createBody(ceilingBarDef);
 
 			groundBarFixtures[i] = groundBars[i].createFixture(fixtureDef);
+			groundBarFixtures[i].setUserData(0f);
 			ceilingBarFixtures[i] = ceilingBars[i].createFixture(fixtureDef);
 		}
 		shape.dispose();
@@ -73,32 +74,72 @@ public class Visualizer {
 	public void update() {
 		if (delay > 6) {
 			analyzer.getSpectrum(spectrum);
+			int nb = (spectrum.length / numBars) / 2;
+
 			for (int i = 0; i < numBars; i++) {
-				int histoX = 0;
-				if (i < numBars / 2) {
-					histoX = numBars / 2 - i;
-				} else {
-					histoX = i - numBars / 2;
-				}
-				int nb = (spectrum.length / numBars) / 2;
-				groundBars[i].destroyFixture(groundBarFixtures[i]);
-				ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
-
 				PolygonShape shape = new PolygonShape();
-				shape.setAsBox((width / numBars) / 2,
-						scale(avg(histoX, nb)) / 2);
 
-				fixtureDef.shape = shape;
+				if (i == numBars - 1) {
+					groundBars[i].destroyFixture(groundBarFixtures[i]);
+					ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
+					shape.setAsBox((width / numBars) / 2, scale(avg(0, nb)) / 2);
 
-				groundBarFixtures[i] = groundBars[i].createFixture(fixtureDef);
-				ceilingBarFixtures[i] = ceilingBars[i]
-						.createFixture(fixtureDef);
-				shape.dispose();
+					fixtureDef.shape = shape;
+
+					groundBarFixtures[i] = groundBars[i]
+							.createFixture(fixtureDef);
+					groundBarFixtures[i].setUserData(scale(avg(0, nb)) / 2);
+					ceilingBarFixtures[i] = ceilingBars[i]
+							.createFixture(fixtureDef);
+					shape.dispose();
+				} else {
+					float h = (Float) groundBarFixtures[i + 1].getUserData();
+					groundBars[i].destroyFixture(groundBarFixtures[i]);
+					ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
+					shape = new PolygonShape();
+					shape.setAsBox((width / numBars) / 2, h);
+
+					fixtureDef.shape = shape;
+
+					groundBarFixtures[i] = groundBars[i]
+							.createFixture(fixtureDef);
+					groundBarFixtures[i].setUserData(h);
+					ceilingBarFixtures[i] = ceilingBars[i]
+							.createFixture(fixtureDef);
+					shape.dispose();
+				}
 			}
-			delay = 0;
-		}else{
+		} else {
 			delay++;
 		}
+		// if (delay > 6) {
+		// analyzer.getSpectrum(spectrum);
+		// for (int i = 0; i < numBars; i++) {
+		// int histoX = 0;
+		// if (i < numBars / 2) {
+		// histoX = numBars / 2 - i;
+		// } else {
+		// histoX = i - numBars / 2;
+		// }
+		// int nb = (spectrum.length / numBars) / 2;
+		// groundBars[i].destroyFixture(groundBarFixtures[i]);
+		// ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
+		//
+		// PolygonShape shape = new PolygonShape();
+		// shape.setAsBox((width / numBars) / 2,
+		// scale(avg(histoX, nb)) / 2);
+		//
+		// fixtureDef.shape = shape;
+		//
+		// groundBarFixtures[i] = groundBars[i].createFixture(fixtureDef);
+		// ceilingBarFixtures[i] = ceilingBars[i]
+		// .createFixture(fixtureDef);
+		// shape.dispose();
+		// }
+		// delay = 0;
+		// }else{
+		// delay++;
+		// }
 	}
 
 	private float scale(float x) {
