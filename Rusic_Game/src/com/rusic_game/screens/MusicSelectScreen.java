@@ -49,9 +49,11 @@ public class MusicSelectScreen implements Screen{
 		this.game = game;
 		this.spriteBatch = spriteBatch;
 		if(game.isAndroid==true){
-			musicpath = game.musicpath;
-			musicinfo = game.musicinfo;
-		}
+			musicpath = new String[500];
+			musicinfo = new String[500];
+			musicinfo[0] = "NONE";
+			for(int i=1; i < 500; i++) musicinfo[i] = game.musicinfo[i-1];
+			}
 		else{
 			musicpath= new String[1];
 			musicinfo= new String[1];
