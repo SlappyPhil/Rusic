@@ -52,6 +52,7 @@ public class GameScreen implements Screen {
 	private Vector3 bottomLeft, bottomRight;
 	private Rusic_Game game;
 	private AudioAnalyzer analyzer;
+	public String musicPath; 
 	
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.spriteBatch = spriteBatch;
@@ -61,7 +62,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		analyzer = new AudioAnalyzer("audio/tester.mp3");
+		analyzer = new AudioAnalyzer(musicPath);
 		world = new World(new Vector2(0, -19), true);
 		debugRenderer = new Box2DDebugRenderer();
 		camera = new OrthographicCamera();

@@ -55,10 +55,11 @@ public class MusicSelectScreen implements Screen{
             for(int i=1; i < 500; i++) musicinfo[i] = game.musicinfo[i-1];
 		}
 		else{
-			musicpath= new String[1];
-			musicinfo= new String[1];
-			musicpath[0]="";
-			musicinfo[0]="Test Song - Unknown Album";
+			musicpath= new String[2];
+			musicinfo= new String[2];
+			musicpath[0]="audio/tester.mp3";
+			musicinfo[0] = "NONE";
+			musicinfo[1]="Test Song - Unknown Album";
 		}
 	}
 	@Override
@@ -121,7 +122,9 @@ public class MusicSelectScreen implements Screen{
     }
     
     public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            game.setScreen(game.gameScreen);
+            if(musicSelectBox.getSelectionIndex() > 0) game.gameScreen.musicPath = musicpath[musicSelectBox.getSelectionIndex()-1];
+            else game.gameScreen.musicPath = null;
+    		game.setScreen(game.gameScreen);
             
     }
 });
