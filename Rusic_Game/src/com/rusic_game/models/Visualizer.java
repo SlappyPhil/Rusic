@@ -72,45 +72,49 @@ public class Visualizer {
 	}
 
 	public void update() {
-		if (delay > 6) {
-			analyzer.getSpectrum(spectrum);
-			int nb = (spectrum.length / numBars) / 2;
+		if (analyzer != null) {
+			if (delay > 6) {
+				analyzer.getSpectrum(spectrum);
+				int nb = (spectrum.length / numBars) / 2;
 
-			for (int i = 0; i < numBars; i++) {
-				PolygonShape shape = new PolygonShape();
+				for (int i = 0; i < numBars; i++) {
+					PolygonShape shape = new PolygonShape();
 
-				if (i == numBars - 1) {
-					groundBars[i].destroyFixture(groundBarFixtures[i]);
-					ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
-					shape.setAsBox((width / numBars) / 2, scale(avg(0, nb)) / 2);
+					if (i == numBars - 1) {
+						groundBars[i].destroyFixture(groundBarFixtures[i]);
+						ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
+						shape.setAsBox((width / numBars) / 2,
+								scale(avg(0, nb)) / 2);
 
-					fixtureDef.shape = shape;
+						fixtureDef.shape = shape;
 
-					groundBarFixtures[i] = groundBars[i]
-							.createFixture(fixtureDef);
-					groundBarFixtures[i].setUserData(scale(avg(0, nb)) / 2);
-					ceilingBarFixtures[i] = ceilingBars[i]
-							.createFixture(fixtureDef);
-					shape.dispose();
-				} else {
-					float h = (Float) groundBarFixtures[i + 1].getUserData();
-					groundBars[i].destroyFixture(groundBarFixtures[i]);
-					ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
-					shape = new PolygonShape();
-					shape.setAsBox((width / numBars) / 2, h);
+						groundBarFixtures[i] = groundBars[i]
+								.createFixture(fixtureDef);
+						groundBarFixtures[i].setUserData(scale(avg(0, nb)) / 2);
+						ceilingBarFixtures[i] = ceilingBars[i]
+								.createFixture(fixtureDef);
+						shape.dispose();
+					} else {
+						float h = (Float) groundBarFixtures[i + 1]
+								.getUserData();
+						groundBars[i].destroyFixture(groundBarFixtures[i]);
+						ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
+						shape = new PolygonShape();
+						shape.setAsBox((width / numBars) / 2, h);
 
-					fixtureDef.shape = shape;
+						fixtureDef.shape = shape;
 
-					groundBarFixtures[i] = groundBars[i]
-							.createFixture(fixtureDef);
-					groundBarFixtures[i].setUserData(h);
-					ceilingBarFixtures[i] = ceilingBars[i]
-							.createFixture(fixtureDef);
-					shape.dispose();
+						groundBarFixtures[i] = groundBars[i]
+								.createFixture(fixtureDef);
+						groundBarFixtures[i].setUserData(h);
+						ceilingBarFixtures[i] = ceilingBars[i]
+								.createFixture(fixtureDef);
+						shape.dispose();
+					}
 				}
+			} else {
+				delay++;
 			}
-		} else {
-			delay++;
 		}
 		// if (delay > 6) {
 		// analyzer.getSpectrum(spectrum);

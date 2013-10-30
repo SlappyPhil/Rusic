@@ -17,6 +17,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rusic_game.Rusic_Game;
 import com.rusic_game.models.Player;
 import com.rusic_game.models.Visualizer;
+import com.rusic_game.projectiles.Circles;
+import com.rusic_game.projectiles.Squares;
+import com.rusic_game.projectiles.Triangles;
 import com.rusic_game.audio.AudioAnalyzer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -30,6 +33,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 
 
@@ -54,6 +58,14 @@ public class GameScreen implements Screen {
 	private AudioAnalyzer analyzer;
 	public String musicPath; 
 	
+	private Array<Circles> circles = new Array<Circles>();
+	private Circles circle;
+	private Squares square;
+	private Triangles triangle;
+	
+	
+	private float circleSize = 5;
+	
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.spriteBatch = spriteBatch;
 		this.game = game;
@@ -62,7 +74,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		analyzer = new AudioAnalyzer(musicPath);
+		if(musicPath != null)
+			analyzer = new AudioAnalyzer(musicPath);
 		world = new World(new Vector2(0, -19), true);
 		debugRenderer = new Box2DDebugRenderer();
 		camera = new OrthographicCamera();
@@ -79,6 +92,14 @@ public class GameScreen implements Screen {
                      case Keys.ESCAPE:
                              game.setScreen(new MainScreen(game, spriteBatch));
                              break;
+                     case Keys.C:
+                    	 circle = new Circles(world, 1);
+            			 circle.update();
+            			 break;
+                     case Keys.S:
+                    	 square = new Squares(world);
+                    	 square.update();
+                    	 break;
                      }
                      return false;
              }
@@ -184,7 +205,8 @@ public class GameScreen implements Screen {
 		world.createBody(charDef).createFixture(fixtureDef);
 		leftShape.dispose();
 		*/
-		analyzer.play();
+        if(analyzer != null)
+        	analyzer.play();
 	}
 
 	@Override
@@ -219,7 +241,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void hide() {
-		analyzer.stop();
+		if(analyzer != null)
+			analyzer.stop();
 		Gdx.input.setInputProcessor(null);
 	}
 
