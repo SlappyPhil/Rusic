@@ -50,15 +50,15 @@ public class Visualizer {
 			if (i < numBars / 2) {
 				groundBarDef.position.set(
 						-(width * (numBars - i) / numBars - width / 2),
-						-height / 2);
+						-height);
 				ceilingBarDef.position.set(
 						-(width * (numBars - i) / numBars - width / 2),
-						height / 2);
+						height);
 			} else {
 				groundBarDef.position.set(width * i / numBars - width / 2,
-						-height / 2);
+						-height);
 				ceilingBarDef.position.set(width * i / numBars - width / 2,
-						height / 2);
+						height);
 			}
 			groundBarDef.fixedRotation = true;
 			ceilingBarDef.fixedRotation = true;
@@ -89,7 +89,7 @@ public class Visualizer {
 
 //						fixtureDef.shape = shape;
 
-						groundBars[i].setTransform(new Vector2(-width/2+i*width/numBars, -height/1.3f +scale(avg(0, nb)) / 2),0);
+						groundBars[i].setTransform(new Vector2(-width/2+i*width/numBars, -height/1.2f +scale(avg(0, nb)) / 2),0);
 						groundBarFixtures[i].setUserData(scale(avg(0, nb)) / 2);
 						ceilingBars[i].setTransform(new Vector2(-width/2+i*width/numBars, +height/1.3f +scale(avg(0, nb)) / 2),0);
 //						ceilingBarFixtures[i] = ceilingBars[i]
@@ -105,7 +105,7 @@ public class Visualizer {
 //
 //						fixtureDef.shape = shape;
 
-						groundBars[i].setTransform(new Vector2(-width/2+i*width/numBars, -height/1.3f +h),0);
+						groundBars[i].setTransform(new Vector2(-width/2+i*width/numBars, -height/1.2f +h),0);
 						groundBarFixtures[i].setUserData(h);
 						ceilingBars[i].setTransform(new Vector2(-width/2+i*width/numBars, +height/1.3f +h),0);
 //						ceilingBarFixtures[i] = ceilingBars[i]

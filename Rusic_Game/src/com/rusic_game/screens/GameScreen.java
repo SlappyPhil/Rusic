@@ -134,7 +134,7 @@ public class GameScreen implements Screen {
         //fixture definition
         fixtureDef.shape = groundShape;
         fixtureDef.friction = 0.5f;
-        fixtureDef.restitution = 0;
+        fixtureDef.restitution = 1;
         
         world.createBody(charDef).createFixture(fixtureDef);
         groundShape.dispose();
@@ -154,7 +154,7 @@ public class GameScreen implements Screen {
         //fixture definition
         fixtureDef.shape = topShape;
         fixtureDef.friction = 0.5f;
-        fixtureDef.restitution = 0;
+        fixtureDef.restitution = .5f;
         
         world.createBody(charDef).createFixture(fixtureDef);
         topShape.dispose();

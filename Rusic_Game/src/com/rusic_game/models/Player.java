@@ -38,7 +38,7 @@ public class Player extends InputAdapter  {
 
                 FixtureDef fixtureDef = new FixtureDef();
                 fixtureDef.shape = shape;
-                fixtureDef.restitution = .1f;
+                fixtureDef.restitution = .2f;
                 fixtureDef.friction = .5f;
                 fixtureDef.density = 3;
 
