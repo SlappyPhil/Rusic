@@ -55,11 +55,13 @@ public class MusicSelectScreen implements Screen{
             for(int i=1; i < 500; i++) musicinfo[i] = game.musicinfo[i-1];
 		}
 		else{
-			musicpath= new String[2];
-			musicinfo= new String[2];
-			musicpath[0]="audio/tester.mp3";
+			musicpath= new String[3];
+			musicinfo= new String[3];
+			musicpath[0] = "audio/tester.mp3";
+			musicpath[1] = "audio/tester1.mp3";
 			musicinfo[0] = "NONE";
-			musicinfo[1]="Test Song - Unknown Album";
+			musicinfo[1] = "Test Song 1";
+			musicinfo[2] = "Test Song 2";
 		}
 	}
 	@Override

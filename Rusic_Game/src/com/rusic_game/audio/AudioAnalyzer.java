@@ -20,9 +20,9 @@ public class AudioAnalyzer {
                 samples = new short[2048];
                 spectrum = new float[2048];
                 externalFile = Gdx.files.external("tmp/audio-analyze.mp3");
-        Gdx.files.internal(file).copyTo(externalFile);
-        decoder = new Mpg123Decoder(externalFile);
-        device = Gdx.audio.newAudioDevice(decoder.getRate(), decoder.getChannels() == 1 ? true : false);
+                Gdx.files.internal(file).copyTo(externalFile);
+                decoder = new Mpg123Decoder(externalFile);
+                device = Gdx.audio.newAudioDevice(decoder.getRate(), decoder.getChannels() == 1 ? true : false);
         }
         
         private class Playback implements Runnable {

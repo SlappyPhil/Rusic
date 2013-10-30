@@ -40,7 +40,7 @@ public class Circles   {
     	    
             BodyDef bodyDef = new BodyDef();
             bodyDef.type = BodyType.DynamicBody;
-            bodyDef.position.set(26, randPosY);
+            bodyDef.position.set(25f, randPosY);
             bodyDef.fixedRotation = true;
             
 

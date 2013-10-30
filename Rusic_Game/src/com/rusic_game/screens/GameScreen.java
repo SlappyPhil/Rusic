@@ -76,6 +76,8 @@ public class GameScreen implements Screen {
 	public void show() {
 		if(musicPath != null)
 			analyzer = new AudioAnalyzer(musicPath);
+		else
+			analyzer = null;
 		world = new World(new Vector2(0, -19), true);
 		debugRenderer = new Box2DDebugRenderer();
 		camera = new OrthographicCamera();
@@ -100,6 +102,9 @@ public class GameScreen implements Screen {
                     	 square = new Squares(world);
                     	 square.update();
                     	 break;
+                     /*case Keys.T:
+                    	 triangle = new Triangles(world);
+                    	 triangle.update();*/
                      }
                      return false;
              }

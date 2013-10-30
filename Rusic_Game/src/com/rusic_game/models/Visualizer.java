@@ -12,7 +12,7 @@ import com.rusic_game.audio.AudioAnalyzer;
 public class Visualizer {
 	private World world;
 	private AudioAnalyzer analyzer;
-	private int numBars = 31;
+	private int numBars = 50;
 	private float width = 52, height = 28.6f;
 	private float[] spectrum;
 	private Body[] groundBars;
