@@ -65,11 +65,11 @@ public class MainActivity extends AndroidApplication {
                         String fullpath = cursor.getString(cursor
                                 .getColumnIndex(MediaStore.Audio.Media.DATA));
 
-                        Log.d("Song Path: ", fullpath);
+                        Log.d("Song Path: ", fullpath.substring(17));
                         
                         String albumName = cursor.getString(cursor
                                 .getColumnIndex(MediaStore.Audio.Media.ALBUM));
-                        musicpath[i]=fullpath;
+                        musicpath[i]=fullpath.substring(17);
                         String temp = songTitle+ " - "+ albumName;
                         if(temp.length() > 56) temp = temp.substring(1, 56);
                         musicinfo[i]= temp;

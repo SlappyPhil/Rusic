@@ -3,6 +3,7 @@ package com.rusic_game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -44,7 +45,7 @@ public class MainScreen implements Screen, InputProcessor {
 	public void show() {
 		mainScreenTexture = new Texture(Gdx.files.internal("images/MainScreen.png"));
 		stage = new Stage();
-		
+	    
 		//INPUT PROCESSOR
 		Gdx.input.setInputProcessor(stage);
 		
