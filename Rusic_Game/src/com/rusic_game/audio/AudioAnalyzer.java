@@ -14,13 +14,18 @@ public class AudioAnalyzer {
         Mpg123Decoder decoder;
         AudioDevice device;
         boolean playing = false;
+        public boolean isAndroid;
         
-        public AudioAnalyzer(String file) {
+        public AudioAnalyzer(String file, boolean isAndroid) {
+        		this.isAndroid = isAndroid;
                 fft = new KissFFT(2048);
                 samples = new short[2048];
                 spectrum = new float[2048];
-                externalFile = Gdx.files.external("tmp/audio-analyze.mp3");
-                Gdx.files.internal(file).copyTo(externalFile);
+                if(isAndroid == true) externalFile = Gdx.files.external(file);
+                else{
+                	externalFile = Gdx.files.external("tmp/audio-analyze.mp3");
+                    Gdx.files.internal(file).copyTo(externalFile);
+                }
                 decoder = new Mpg123Decoder(externalFile);
                 device = Gdx.audio.newAudioDevice(decoder.getRate(), decoder.getChannels() == 1 ? true : false);
         }
@@ -49,6 +54,11 @@ public class AudioAnalyzer {
         
         public void getSpectrum(float[] spectrum) {
                 System.arraycopy(this.spectrum, 0, spectrum, 0, this.spectrum.length);
+        }
+        
+        public void togglePlay(){
+        	if(playing == true) playing = false;
+        	else play();
         }
         
         public void stop() {

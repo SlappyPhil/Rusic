@@ -74,8 +74,9 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		if(musicPath != null)
-			analyzer = new AudioAnalyzer(musicPath);
+		if(musicPath != null){
+			analyzer = new AudioAnalyzer(musicPath, game.isAndroid);
+		}
 		else
 			analyzer = null;
 		world = new World(new Vector2(0, -19), true);
@@ -222,6 +223,10 @@ public class GameScreen implements Screen {
 		
 		visualizer.update();
 		player.update();
+		
+		if(Gdx.input.justTouched()){
+			analyzer.togglePlay();
+		}
      
 		debugRenderer.render(world, camera.combined);
 		
