@@ -15,7 +15,7 @@ public class MainActivity extends AndroidApplication {
         
         private String[] musicpath = new String[1000];
         private String[] musicinfo = new String[1000];
-        private boolean isAndroid;
+        private boolean isAndroid = true;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +43,7 @@ public class MainActivity extends AndroidApplication {
         String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
         
         String[] queryALL = {"*"};
+        int i=0;
         
         if (sdCardExists()) {
             cursor = managedQuery(allsongsuri, queryALL, selection, null, null);
@@ -54,7 +55,7 @@ public class MainActivity extends AndroidApplication {
                 if (cursor.moveToFirst()) {
                         Log.d("Msg: ", "Songs were found in SD card, print info");
                     do {
-                    	int i=0;
+                    	
                         String songTitle = cursor
                                 .getString(cursor
                                         .getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME));
@@ -69,7 +70,10 @@ public class MainActivity extends AndroidApplication {
                         String albumName = cursor.getString(cursor
                                 .getColumnIndex(MediaStore.Audio.Media.ALBUM));
                         musicpath[i]=fullpath;
-                        musicinfo[i]=songTitle+ " - "+ albumName;
+                        String temp = songTitle+ " - "+ albumName;
+                        if(temp.length() > 56) temp = temp.substring(1, 56);
+                        musicinfo[i]= temp;
+                        Log.e("MUSICINFO["+i+"]", musicinfo[i]);
                         i++;
                     } while (cursor.moveToNext());
                 }
