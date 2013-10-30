@@ -1,5 +1,6 @@
 package com.rusic_game.models;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -37,7 +38,7 @@ public class Visualizer {
 		delay = 0;
 
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox((width / numBars) / 2, 0);
+		shape.setAsBox((width / numBars) / 2, 10);
 
 		fixtureDef.shape = shape;
 
@@ -73,43 +74,43 @@ public class Visualizer {
 
 	public void update() {
 		if (analyzer != null) {
-			if (delay > 6) {
+			if (delay > 5) {
 				analyzer.getSpectrum(spectrum);
 				int nb = (spectrum.length / numBars) / 2;
 
 				for (int i = 0; i < numBars; i++) {
-					PolygonShape shape = new PolygonShape();
+//					PolygonShape shape = new PolygonShape();
 
 					if (i == numBars - 1) {
-						groundBars[i].destroyFixture(groundBarFixtures[i]);
-						ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
-						shape.setAsBox((width / numBars) / 2,
-								scale(avg(0, nb)) / 2);
+//						groundBars[i].destroyFixture(groundBarFixtures[i]);
+//						ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
+//						shape.setAsBox((width / numBars) / 2,
+//								scale(avg(0, nb)) / 2);
 
-						fixtureDef.shape = shape;
+//						fixtureDef.shape = shape;
 
-						groundBarFixtures[i] = groundBars[i]
-								.createFixture(fixtureDef);
+						groundBars[i].setTransform(new Vector2(-width/2+i*width/numBars, -height/1.3f +scale(avg(0, nb)) / 2),0);
 						groundBarFixtures[i].setUserData(scale(avg(0, nb)) / 2);
-						ceilingBarFixtures[i] = ceilingBars[i]
-								.createFixture(fixtureDef);
-						shape.dispose();
+						ceilingBars[i].setTransform(new Vector2(-width/2+i*width/numBars, +height/1.3f +scale(avg(0, nb)) / 2),0);
+//						ceilingBarFixtures[i] = ceilingBars[i]
+//								.createFixture(fixtureDef);
+//						shape.dispose();
 					} else {
 						float h = (Float) groundBarFixtures[i + 1]
 								.getUserData();
-						groundBars[i].destroyFixture(groundBarFixtures[i]);
-						ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
-						shape = new PolygonShape();
-						shape.setAsBox((width / numBars) / 2, h);
+//						groundBars[i].destroyFixture(groundBarFixtures[i]);
+//						ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
+//						shape = new PolygonShape();
+//						shape.setAsBox((width / numBars) / 2, h);
+//
+//						fixtureDef.shape = shape;
 
-						fixtureDef.shape = shape;
-
-						groundBarFixtures[i] = groundBars[i]
-								.createFixture(fixtureDef);
+						groundBars[i].setTransform(new Vector2(-width/2+i*width/numBars, -height/1.3f +h),0);
 						groundBarFixtures[i].setUserData(h);
-						ceilingBarFixtures[i] = ceilingBars[i]
-								.createFixture(fixtureDef);
-						shape.dispose();
+						ceilingBars[i].setTransform(new Vector2(-width/2+i*width/numBars, +height/1.3f +h),0);
+//						ceilingBarFixtures[i] = ceilingBars[i]
+//								.createFixture(fixtureDef);
+//						shape.dispose();
 					}
 				}
 			} else {

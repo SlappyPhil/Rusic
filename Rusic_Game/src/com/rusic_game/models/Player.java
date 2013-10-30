@@ -38,7 +38,7 @@ public class Player extends InputAdapter  {
 
                 FixtureDef fixtureDef = new FixtureDef();
                 fixtureDef.shape = shape;
-                fixtureDef.restitution = .5f;
+                fixtureDef.restitution = .1f;
                 fixtureDef.friction = .5f;
                 fixtureDef.density = 3;
 
@@ -68,9 +68,9 @@ public class Player extends InputAdapter  {
                 case Keys.UP:
                     velocity.y = movementForce;
                     break;
-              //  case Keys.DOWN:
-                //    velocity.y = -movementForce;
-                //    break;
+                case Keys.DOWN:
+                    velocity.y = -movementForce;
+                    break;
                
                 // TODO remove this case
    
@@ -92,9 +92,9 @@ public class Player extends InputAdapter  {
             case Keys.UP:
                 velocity.y = airResistance;
                 break;
-          //  case Keys.DOWN:
-            //    velocity.y = 0;
-              //  break;
+            case Keys.DOWN:
+                velocity.y = 0;
+                break;
            
             // TODO remove this case
 
