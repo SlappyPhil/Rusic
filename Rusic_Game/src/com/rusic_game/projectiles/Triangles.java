@@ -40,6 +40,10 @@ public class Triangles  {
     
 
     public Triangles( World world) {
+    		vertices = new Vector2[3];
+    		for(int i = 0; i < vertices.length; i++) {
+    			vertices[i] = new Vector2();
+    		}
     	    vertices[0].set(0, 0);
 
     	    vertices[1].set(1, 0);
@@ -54,7 +58,7 @@ public class Triangles  {
     	    
             BodyDef bodyDef = new BodyDef();
             bodyDef.type = BodyType.DynamicBody;
-            bodyDef.position.set(26, randPosY);
+            bodyDef.position.set(20, randPosY);
             bodyDef.fixedRotation = true;
             
 

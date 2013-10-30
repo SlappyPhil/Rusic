@@ -104,7 +104,8 @@ public class GameScreen implements Screen {
                     	 break;
                      /*case Keys.T:
                     	 triangle = new Triangles(world);
-                    	 triangle.update();*/
+                    	 triangle.update();
+                    	 break;*/
                      }
                      return false;
              }

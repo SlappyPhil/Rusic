@@ -1,5 +1,6 @@
 package com.rusic_game;
 
+import java.util.ArrayList;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,8 +14,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class MainActivity extends AndroidApplication {
         
-        private String[] musicpath = new String[1000];
-        private String[] musicinfo = new String[1000];
+        private ArrayList<String> musicpath = new ArrayList<String>();
+        private ArrayList<String> musicinfo = new ArrayList<String>();
         private boolean isAndroid = true;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,11 +70,11 @@ public class MainActivity extends AndroidApplication {
                         
                         String albumName = cursor.getString(cursor
                                 .getColumnIndex(MediaStore.Audio.Media.ALBUM));
-                        musicpath[i]=fullpath.substring(17);
+                        musicpath.add(fullpath.substring(17));
                         String temp = songTitle+ " - "+ albumName;
                         if(temp.length() > 56) temp = temp.substring(1, 56);
-                        musicinfo[i]= temp;
-                        Log.e("MUSICINFO["+i+"]", musicinfo[i]);
+                        musicinfo.add(temp);
+                        Log.e("MUSICINFO["+i+"]", musicinfo.get(i));
                         i++;
                     } while (cursor.moveToNext());
                 }

@@ -1,5 +1,6 @@
 package com.rusic_game;
 
+import java.util.ArrayList;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,8 +19,8 @@ public class Rusic_Game extends Game {
 	public SplashScreen splashScreen;
 	public SettingScreen settingsScreen;
 	public MusicSelectScreen musicSelectScreen;
-	public String[] musicinfo;
-	public String[] musicpath;
+	public ArrayList<String> musicinfo;
+	public ArrayList<String> musicpath;
 	public boolean isAndroid;
 
 	@Override
@@ -39,7 +40,7 @@ public class Rusic_Game extends Game {
 		
 	}
 	
-	public Rusic_Game(String[] musicpath, String[] musicinfo,boolean isAndroid){
+	public Rusic_Game(ArrayList<String> musicpath, ArrayList<String> musicinfo,boolean isAndroid){
 		this.musicinfo=musicinfo;
 		this.musicpath=musicpath;
 		this.isAndroid=isAndroid;

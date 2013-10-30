@@ -1,5 +1,7 @@
 package com.rusic_game.screens;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -41,27 +43,27 @@ public class MusicSelectScreen implements Screen{
 	private SelectBox.SelectBoxStyle style;
 	private ScrollPane.ScrollPaneStyle scrollStyle;
 	
-	private String[] musicpath;
-	private String[] musicinfo;
+	private ArrayList<String> musicpath;
+	private ArrayList<String> musicinfo;
 	
 	//CONSTRUCTOR
 	public MusicSelectScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.game = game;
 		this.spriteBatch = spriteBatch;
 		if(game.isAndroid==true){
-			musicpath = new String[500];
-            musicinfo = new String[500];
-            musicinfo[0] = "NONE";
-            for(int i=1; i < 500; i++) musicinfo[i] = game.musicinfo[i-1];
+			musicpath = new ArrayList<String>();
+            musicinfo = new ArrayList<String>();
+            musicinfo.add("NONE");
+            for(int i=1; i < game.musicinfo.size(); i++) musicinfo.add(game.musicinfo.get(i-1));
 		}
 		else{
-			musicpath= new String[3];
-			musicinfo= new String[3];
-			musicpath[0] = "audio/tester.mp3";
-			musicpath[1] = "audio/tester1.mp3";
-			musicinfo[0] = "NONE";
-			musicinfo[1] = "Test Song 1";
-			musicinfo[2] = "Test Song 2";
+			musicpath = new ArrayList<String>();
+			musicinfo = new ArrayList<String>();
+			musicpath.add("audio/tester.mp3");
+			musicpath.add("audio/tester1.mp3");
+			musicinfo.add("NONE");
+			musicinfo.add("Test Song 1");
+			musicinfo.add("Test Song 2");
 		}
 	}
 	@Override
@@ -112,7 +114,7 @@ public class MusicSelectScreen implements Screen{
 		List.ListStyle listStyle = new List.ListStyle(white, Color.BLACK, Color.GRAY, skin.getDrawable("button.up"));
 		style = new SelectBox.SelectBoxStyle(white, Color.BLACK, skin.getDrawable("button.up"), scrollStyle, listStyle);
 		
-		musicSelectBox = new SelectBox(musicinfo, style);
+		musicSelectBox = new SelectBox(musicinfo.toArray(), style);
 
 		
 		
@@ -124,7 +126,7 @@ public class MusicSelectScreen implements Screen{
     }
     
     public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            if(musicSelectBox.getSelectionIndex() > 0) game.gameScreen.musicPath = musicpath[musicSelectBox.getSelectionIndex()-1];
+            if(musicSelectBox.getSelectionIndex() > 0) game.gameScreen.musicPath = musicpath.get(musicSelectBox.getSelectionIndex()-1)	;
             else game.gameScreen.musicPath = null;
     		game.setScreen(game.gameScreen);
             
