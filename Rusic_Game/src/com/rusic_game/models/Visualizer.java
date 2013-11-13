@@ -63,7 +63,9 @@ public class Visualizer {
 			groundBarDef.fixedRotation = true;
 			ceilingBarDef.fixedRotation = true;
 			groundBars[i] = world.createBody(groundBarDef);
+			groundBars[i].setUserData("boundary");
 			ceilingBars[i] = world.createBody(ceilingBarDef);
+			ceilingBars[i].setUserData("boundary");
 
 			groundBarFixtures[i] = groundBars[i].createFixture(fixtureDef);
 			groundBarFixtures[i].setUserData(0f);
@@ -91,7 +93,7 @@ public class Visualizer {
 
 						groundBars[i].setTransform(new Vector2(-width/2+i*width/numBars, -height/1.2f +scale(avg(0, nb)) / 2),0);
 						groundBarFixtures[i].setUserData(scale(avg(0, nb)) / 2);
-						ceilingBars[i].setTransform(new Vector2(-width/2+i*width/numBars, +height/1.3f +scale(avg(0, nb)) / 2),0);
+						ceilingBars[i].setTransform(new Vector2(-width/2+i*width/numBars, +height/1.3f -scale(avg(0, nb)) / 2),0);
 //						ceilingBarFixtures[i] = ceilingBars[i]
 //								.createFixture(fixtureDef);
 //						shape.dispose();
@@ -107,7 +109,7 @@ public class Visualizer {
 
 						groundBars[i].setTransform(new Vector2(-width/2+i*width/numBars, -height/1.2f +h),0);
 						groundBarFixtures[i].setUserData(h);
-						ceilingBars[i].setTransform(new Vector2(-width/2+i*width/numBars, +height/1.3f +h),0);
+						ceilingBars[i].setTransform(new Vector2(-width/2+i*width/numBars, +height/1.3f -h),0);
 //						ceilingBarFixtures[i] = ceilingBars[i]
 //								.createFixture(fixtureDef);
 //						shape.dispose();
@@ -148,7 +150,7 @@ public class Visualizer {
 	}
 
 	private float scale(float x) {
-		return x / 256 * height * 2.0f;
+		return x / 256 * height * 1.0f;
 	}
 
 	private float avg(int pos, int nb) {

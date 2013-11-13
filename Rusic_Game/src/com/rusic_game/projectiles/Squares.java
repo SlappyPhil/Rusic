@@ -57,6 +57,7 @@ public class Squares  {
             
             
             body = world.createBody(bodyDef);
+            body.setUserData("projectile");
             fixture = body.createFixture(fixtureDef);
             
            

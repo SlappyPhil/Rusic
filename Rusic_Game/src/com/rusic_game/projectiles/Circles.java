@@ -58,6 +58,7 @@ public class Circles   {
             
 			
             body = world.createBody(bodyDef);
+            body.setUserData("projectile");
             fixture = body.createFixture(fixtureDef);
             
            

@@ -72,6 +72,7 @@ public class Triangles  {
             fixtureDef.isSensor = false;
             
             body = world.createBody(bodyDef);
+            body.setUserData("projectile");
             fixture = body.createFixture(fixtureDef);
             
            
