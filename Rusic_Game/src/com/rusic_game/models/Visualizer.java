@@ -48,17 +48,11 @@ public class Visualizer {
 			groundBarDef.type = BodyType.StaticBody;
 			ceilingBarDef.type = BodyType.StaticBody;
 			if (i < numBars / 2) {
-				groundBarDef.position.set(
-						-(width * (numBars - i) / numBars - width / 2),
-						-height);
-				ceilingBarDef.position.set(
-						-(width * (numBars - i) / numBars - width / 2),
-						height);
+				groundBarDef.position.set(-(width * (numBars - i) / numBars - width / 2), -height);
+				ceilingBarDef.position.set(-(width * (numBars - i) / numBars - width / 2), height);
 			} else {
-				groundBarDef.position.set(width * i / numBars - width / 2,
-						-height);
-				ceilingBarDef.position.set(width * i / numBars - width / 2,
-						height);
+				groundBarDef.position.set(width * i / numBars - width / 2, -height);
+				ceilingBarDef.position.set(width * i / numBars - width / 2, height);
 			}
 			groundBarDef.fixedRotation = true;
 			ceilingBarDef.fixedRotation = true;
@@ -76,77 +70,25 @@ public class Visualizer {
 
 	public void update() {
 		if (analyzer != null) {
-			if (delay > 5) {
-				analyzer.getSpectrum(spectrum);
-				int nb = (spectrum.length / numBars) / 2;
+			analyzer.getSpectrum(spectrum);
+			int nb = (spectrum.length / numBars) / 2;
 
-				for (int i = 0; i < numBars; i++) {
-//					PolygonShape shape = new PolygonShape();
+			for (int i = 0; i < numBars; i++) {
+				// PolygonShape shape = new PolygonShape();
 
-					if (i == numBars - 1) {
-//						groundBars[i].destroyFixture(groundBarFixtures[i]);
-//						ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
-//						shape.setAsBox((width / numBars) / 2,
-//								scale(avg(0, nb)) / 2);
+				if (i == numBars - 1) {
+					groundBars[i].setTransform(new Vector2(-width / 2 + i * width / numBars, -height / 1.2f + scale(avg(0, nb)) / 2), 0);
+					groundBarFixtures[i].setUserData(scale(avg(0, nb)) / 2);
+					ceilingBars[i].setTransform(new Vector2(-width / 2 + i * width / numBars, +height / 1.3f - scale(avg(0, nb)) / 2), 0);
+				} else {
+					float h = (Float) groundBarFixtures[i + 1].getUserData();
 
-//						fixtureDef.shape = shape;
-
-						groundBars[i].setTransform(new Vector2(-width/2+i*width/numBars, -height/1.2f +scale(avg(0, nb)) / 2),0);
-						groundBarFixtures[i].setUserData(scale(avg(0, nb)) / 2);
-						ceilingBars[i].setTransform(new Vector2(-width/2+i*width/numBars, +height/1.3f -scale(avg(0, nb)) / 2),0);
-//						ceilingBarFixtures[i] = ceilingBars[i]
-//								.createFixture(fixtureDef);
-//						shape.dispose();
-					} else {
-						float h = (Float) groundBarFixtures[i + 1]
-								.getUserData();
-//						groundBars[i].destroyFixture(groundBarFixtures[i]);
-//						ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
-//						shape = new PolygonShape();
-//						shape.setAsBox((width / numBars) / 2, h);
-//
-//						fixtureDef.shape = shape;
-
-						groundBars[i].setTransform(new Vector2(-width/2+i*width/numBars, -height/1.2f +h),0);
-						groundBarFixtures[i].setUserData(h);
-						ceilingBars[i].setTransform(new Vector2(-width/2+i*width/numBars, +height/1.3f -h),0);
-//						ceilingBarFixtures[i] = ceilingBars[i]
-//								.createFixture(fixtureDef);
-//						shape.dispose();
-					}
+					groundBars[i].setTransform(new Vector2(-width / 2 + i * width / numBars, -height / 1.2f + h), 0);
+					groundBarFixtures[i].setUserData(h);
+					ceilingBars[i].setTransform(new Vector2(-width / 2 + i * width / numBars, +height / 1.3f - h), 0);
 				}
-			} else {
-				delay++;
 			}
 		}
-		// if (delay > 6) {
-		// analyzer.getSpectrum(spectrum);
-		// for (int i = 0; i < numBars; i++) {
-		// int histoX = 0;
-		// if (i < numBars / 2) {
-		// histoX = numBars / 2 - i;
-		// } else {
-		// histoX = i - numBars / 2;
-		// }
-		// int nb = (spectrum.length / numBars) / 2;
-		// groundBars[i].destroyFixture(groundBarFixtures[i]);
-		// ceilingBars[i].destroyFixture(ceilingBarFixtures[i]);
-		//
-		// PolygonShape shape = new PolygonShape();
-		// shape.setAsBox((width / numBars) / 2,
-		// scale(avg(histoX, nb)) / 2);
-		//
-		// fixtureDef.shape = shape;
-		//
-		// groundBarFixtures[i] = groundBars[i].createFixture(fixtureDef);
-		// ceilingBarFixtures[i] = ceilingBars[i]
-		// .createFixture(fixtureDef);
-		// shape.dispose();
-		// }
-		// delay = 0;
-		// }else{
-		// delay++;
-		// }
 	}
 
 	private float scale(float x) {

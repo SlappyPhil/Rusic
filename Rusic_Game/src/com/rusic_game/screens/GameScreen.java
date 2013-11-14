@@ -80,7 +80,7 @@ public class GameScreen implements Screen {
 			analyzer = new AudioAnalyzer(musicPath, game.isAndroid);
 		} else
 			analyzer = null;
-		world = new World(new Vector2(0, -19), true);
+		world = new World(new Vector2(0, 0), true);
 		debugRenderer = new Box2DDebugRenderer();
 		camera = new OrthographicCamera();
 		bodiesToRemove = new ArrayList<Body>();
@@ -105,10 +105,12 @@ public class GameScreen implements Screen {
 					square = new Squares(world);
 					square.update();
 					break;
-				/*
-				 * case Keys.T: triangle = new Triangles(world);
-				 * triangle.update(); break;
-				 */
+
+				case Keys.T:
+					triangle = new Triangles(world);
+					triangle.update();
+					break;
+
 				}
 				return false;
 			}
@@ -129,8 +131,7 @@ public class GameScreen implements Screen {
 
 		// ground shape
 		ChainShape groundShape = new ChainShape();
-		groundShape.createChain(new Vector2[] { new Vector2(-50, -14.3f),
-				new Vector2(50, -14.3f) });
+		groundShape.createChain(new Vector2[] { new Vector2(-50, -14.3f), new Vector2(50, -14.3f) });
 
 		// fixture definition
 		fixtureDef.shape = groundShape;
@@ -149,8 +150,7 @@ public class GameScreen implements Screen {
 		charDef.position.set(0, 0);
 
 		ChainShape topShape = new ChainShape();
-		topShape.createChain(new Vector2[] { new Vector2(-50, 14.3f),
-				new Vector2(50, 14.3f) });
+		topShape.createChain(new Vector2[] { new Vector2(-50, 14.3f), new Vector2(50, 14.3f) });
 
 		// fixture definition
 		fixtureDef.shape = topShape;
@@ -169,8 +169,7 @@ public class GameScreen implements Screen {
 		charDef.position.set(0, 0);
 
 		ChainShape leftShape = new ChainShape();
-		leftShape.createChain(new Vector2[] { new Vector2(-26, 50),
-				new Vector2(-26, -50) });
+		leftShape.createChain(new Vector2[] { new Vector2(-26, 50), new Vector2(-26, -50) });
 
 		// fixture definition
 		fixtureDef.shape = leftShape;
@@ -187,8 +186,7 @@ public class GameScreen implements Screen {
 		charDef.position.set(0, 0);
 
 		ChainShape rightShape = new ChainShape();
-		rightShape.createChain(new Vector2[] { new Vector2(26, 50),
-				new Vector2(26, -50) });
+		rightShape.createChain(new Vector2[] { new Vector2(26, 50), new Vector2(26, -50) });
 
 		// fixture definition
 		fixtureDef.shape = rightShape;
@@ -240,19 +238,21 @@ public class GameScreen implements Screen {
 			public void beginContact(Contact contact) {
 				final Body bodyA = contact.getFixtureA().getBody();
 				final Body bodyB = contact.getFixtureB().getBody();
-				if (bodyA.getUserData().equals("player")
-						&& bodyB.getUserData().equals("projectile")) {
+				if (bodyA.getUserData().equals("player") && bodyB.getUserData().equals("projectile")) {
 					bodiesToRemove.add(bodyB);
-				} else if (bodyA.getUserData().equals("projectile")
-						&& bodyB.getUserData().equals("player")) {
+				} else if (bodyA.getUserData().equals("projectile") && bodyB.getUserData().equals("player")) {
 					bodiesToRemove.add(bodyA);
 				}
-				if (bodyA.getUserData().equals("left")
-						&& bodyB.getUserData().equals("projectile")) {
+				if (bodyA.getUserData().equals("left") && bodyB.getUserData().equals("projectile")) {
 					bodiesToRemove.add(bodyB);
-				} else if (bodyA.getUserData().equals("projectile")
-						&& bodyB.getUserData().equals("left")) {
+				} else if (bodyA.getUserData().equals("projectile") && bodyB.getUserData().equals("left")) {
 					bodiesToRemove.add(bodyA);
+				}
+				if (bodyA.getUserData().equals("player") && bodyB.getUserData().equals("boundary")) {
+					// set variable in player to note a hit, update function handles post events
+					player.setHitBoundary(true);
+				} else if (bodyA.getUserData().equals("boundary") && bodyB.getUserData().equals("player")) {
+					player.setHitBoundary(true);
 				}
 			}
 		});
