@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rusic_game.screens.GameScreen;
 import com.rusic_game.screens.MainScreen;
 import com.rusic_game.screens.MusicSelectScreen;
+import com.rusic_game.screens.ScoreScreen;
 import com.rusic_game.screens.SettingScreen;
 import com.rusic_game.screens.SplashScreen;
 
@@ -19,6 +20,7 @@ public class Rusic_Game extends Game {
 	public SplashScreen splashScreen;
 	public SettingScreen settingsScreen;
 	public MusicSelectScreen musicSelectScreen;
+	public ScoreScreen scoreScreen;
 	public ArrayList<String> musicinfo;
 	public ArrayList<String> musicpath;
 	public boolean isAndroid;
@@ -33,6 +35,7 @@ public class Rusic_Game extends Game {
 		gameScreen = new GameScreen(this, spriteBatch);
 		settingsScreen = new SettingScreen(this, spriteBatch);
 		musicSelectScreen = new MusicSelectScreen(this, spriteBatch);
+		scoreScreen = new ScoreScreen(this, spriteBatch);
 		setScreen(splashScreen);
 	}
 	
