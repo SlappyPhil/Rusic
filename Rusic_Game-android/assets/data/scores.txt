@@ -1,0 +1,4 @@
+**Achievement trackers should be written first, since there are fewer entries, and a static number of them.**
+DISTANCE TRAVELED: 0
+POWERUPS GRABBED: 0
+[song title here]: [score here]
