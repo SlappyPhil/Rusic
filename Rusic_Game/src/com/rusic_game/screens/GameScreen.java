@@ -21,6 +21,7 @@ import com.rusic_game.Rusic_Game;
 import com.rusic_game.models.Player;
 import com.rusic_game.models.Visualizer;
 import com.rusic_game.projectiles.Circles;
+import com.rusic_game.projectiles.InvincibilityPowerUp;
 import com.rusic_game.projectiles.Squares;
 import com.rusic_game.projectiles.Triangles;
 import com.rusic_game.audio.AudioAnalyzer;
@@ -66,6 +67,7 @@ public class GameScreen implements Screen {
 	private Circles circle;
 	private Squares square;
 	private Triangles triangle;
+	private InvincibilityPowerUp iPowerUp;
 
 	private float circleSize = 5;
 
@@ -111,6 +113,11 @@ public class GameScreen implements Screen {
 					triangle.update();
 					break;
 
+				case Keys.I:
+					iPowerUp = new InvincibilityPowerUp(world, 0.2f);
+					iPowerUp.update();
+					break;
+
 				}
 				return false;
 			}
@@ -131,7 +138,8 @@ public class GameScreen implements Screen {
 
 		// ground shape
 		ChainShape groundShape = new ChainShape();
-		groundShape.createChain(new Vector2[] { new Vector2(-50, -14.3f), new Vector2(50, -14.3f) });
+		groundShape.createChain(new Vector2[] { new Vector2(-50, -14.3f),
+				new Vector2(50, -14.3f) });
 
 		// fixture definition
 		fixtureDef.shape = groundShape;
@@ -150,7 +158,8 @@ public class GameScreen implements Screen {
 		charDef.position.set(0, 0);
 
 		ChainShape topShape = new ChainShape();
-		topShape.createChain(new Vector2[] { new Vector2(-50, 14.3f), new Vector2(50, 14.3f) });
+		topShape.createChain(new Vector2[] { new Vector2(-50, 14.3f),
+				new Vector2(50, 14.3f) });
 
 		// fixture definition
 		fixtureDef.shape = topShape;
@@ -169,7 +178,8 @@ public class GameScreen implements Screen {
 		charDef.position.set(0, 0);
 
 		ChainShape leftShape = new ChainShape();
-		leftShape.createChain(new Vector2[] { new Vector2(-26, 50), new Vector2(-26, -50) });
+		leftShape.createChain(new Vector2[] { new Vector2(-26, 50),
+				new Vector2(-26, -50) });
 
 		// fixture definition
 		fixtureDef.shape = leftShape;
@@ -186,7 +196,8 @@ public class GameScreen implements Screen {
 		charDef.position.set(0, 0);
 
 		ChainShape rightShape = new ChainShape();
-		rightShape.createChain(new Vector2[] { new Vector2(26, 50), new Vector2(26, -50) });
+		rightShape.createChain(new Vector2[] { new Vector2(26, 50),
+				new Vector2(26, -50) });
 
 		// fixture definition
 		fixtureDef.shape = rightShape;
@@ -238,21 +249,38 @@ public class GameScreen implements Screen {
 			public void beginContact(Contact contact) {
 				final Body bodyA = contact.getFixtureA().getBody();
 				final Body bodyB = contact.getFixtureB().getBody();
-				if (bodyA.getUserData().equals("player") && bodyB.getUserData().equals("projectile")) {
+				if (bodyA.getUserData().equals("player")
+						&& bodyB.getUserData().equals("projectile")) {
 					bodiesToRemove.add(bodyB);
-				} else if (bodyA.getUserData().equals("projectile") && bodyB.getUserData().equals("player")) {
+				} else if (bodyA.getUserData().equals("projectile")
+						&& bodyB.getUserData().equals("player")) {
 					bodiesToRemove.add(bodyA);
 				}
-				if (bodyA.getUserData().equals("left") && bodyB.getUserData().equals("projectile")) {
+				if (bodyA.getUserData().equals("left")
+						&& bodyB.getUserData().equals("projectile")) {
 					bodiesToRemove.add(bodyB);
-				} else if (bodyA.getUserData().equals("projectile") && bodyB.getUserData().equals("left")) {
+				} else if (bodyA.getUserData().equals("projectile")
+						&& bodyB.getUserData().equals("left")) {
 					bodiesToRemove.add(bodyA);
 				}
-				if (bodyA.getUserData().equals("player") && bodyB.getUserData().equals("boundary")) {
-					// set variable in player to note a hit, update function handles post events
+				if (bodyA.getUserData().equals("player")
+						&& bodyB.getUserData().equals("boundary")) {
+					// set variable in player to note a hit, update function
+					// handles post events
 					player.setHitBoundary(true);
-				} else if (bodyA.getUserData().equals("boundary") && bodyB.getUserData().equals("player")) {
+				} else if (bodyA.getUserData().equals("boundary")
+						&& bodyB.getUserData().equals("player")) {
 					player.setHitBoundary(true);
+				}
+				if (bodyA.getUserData().equals("iPowerUp")
+						&& bodyB.getUserData().equals("player")) {
+					player.setInvincible(true);
+					bodiesToRemove.add(bodyA);
+				} else if (bodyB.getUserData().equals("iPowerUp")
+						&& bodyA.getUserData().equals("player")) {
+					// set player invincible to true
+					player.setInvincible(true);
+					bodiesToRemove.add(bodyB);
 				}
 			}
 		});

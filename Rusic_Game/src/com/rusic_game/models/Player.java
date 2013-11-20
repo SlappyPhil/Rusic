@@ -24,8 +24,10 @@ public class Player extends InputAdapter {
 	private Vector2 velocity = new Vector2();
 	private float movementForce = 400, airResistance = 5, jumpPower = 40;
 	private boolean hitBoundary;
+	private boolean invincible = false;
 	private boolean collisionPause = false;
 	private int collisionTimer = 0;
+	private int invincibleTimer = 0;
 
 	public Player(World world, float x, float y, float width) {
 		WIDTH = width;
@@ -49,31 +51,40 @@ public class Player extends InputAdapter {
 		body.setUserData("player");
 		fixture = body.createFixture(fixtureDef);
 		shape.dispose();
-		
+
 	}
 
 	public void update() {
-		if(hitBoundary){
+		if (hitBoundary) {
 			body.setTransform(-10, 1, 0);
-			body.setLinearVelocity(0,0);
+			body.setLinearVelocity(0, 0);
 			velocity.x = 0;
 			velocity.y = 0;
 			hitBoundary = false;
 			movementForce = 0;
 			airResistance = 0;
 			collisionPause = true;
-		}else{
+		} else {
 			body.applyForceToCenter(velocity, true);
 		}
-		if(collisionPause){
+		if (collisionPause) {
 			body.setUserData("invulnerable");
 			collisionTimer++;
-			if(collisionTimer > 1*60){
+			if (collisionTimer > 1 * 60) {
 				body.setUserData("player");
 				collisionPause = false;
 				collisionTimer = 0;
 				movementForce = 400;
 				airResistance = 5;
+			}
+		}
+		if (invincible) {
+			body.setUserData("invulnerable");
+			invincibleTimer++;
+			if (invincibleTimer > 5 * 60) {
+				invincible = false;
+				body.setUserData("player");
+				invincibleTimer = 0;
 			}
 		}
 	}
@@ -149,7 +160,13 @@ public class Player extends InputAdapter {
 	public void setHitBoundary(boolean hitBoundary) {
 		this.hitBoundary = hitBoundary;
 	}
-	
-	
+
+	public boolean getInvincible() {
+		return invincible;
+	}
+
+	public void setInvincible(boolean b) {
+		invincible = b;
+	}
 
 }
