@@ -6,6 +6,12 @@ public class CustomUserData {
 	private String userDef;
 	private Sprite sprite;
 	
+	public CustomUserData(String userDef) {
+		super();
+		this.userDef = userDef;
+	}
+	
+	
 	public CustomUserData(String userDef, Sprite sprite) {
 		super();
 		this.userDef = userDef;

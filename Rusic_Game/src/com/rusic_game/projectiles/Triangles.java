@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.rusic_game.models.helper.CustomUserData;
+
 import java.util.Random;
 
 public class Triangles {
@@ -52,7 +54,7 @@ public class Triangles {
 		fixtureDef.isSensor = false;
 
 		body = world.createBody(bodyDef);
-		body.setUserData("projectile");
+		body.setUserData(new CustomUserData("projectile"));
 		fixture = body.createFixture(fixtureDef);
 
 		shape.dispose();

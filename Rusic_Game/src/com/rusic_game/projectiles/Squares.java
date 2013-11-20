@@ -14,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.rusic_game.models.helper.CustomUserData;
+
 import java.util.Random;
 
 public class Squares {
@@ -48,7 +50,7 @@ public class Squares {
 		fixtureDef.isSensor = false;
 
 		body = world.createBody(bodyDef);
-		body.setUserData("projectile");
+		body.setUserData(new CustomUserData("projectile"));
 		fixture = body.createFixture(fixtureDef);
 
 		squareShape.dispose();

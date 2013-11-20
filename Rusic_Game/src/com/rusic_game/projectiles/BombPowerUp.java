@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.rusic_game.models.helper.CustomUserData;
 
 public class BombPowerUp {
 
@@ -42,7 +43,7 @@ public class BombPowerUp {
             body = world.createBody(bodyDef);
             fixture = body.createFixture(fixtureDef);
             
-            body.setUserData("bPowerUp");
+            body.setUserData(new CustomUserData("bPowerUp"));
             
             circleShape.dispose();
             

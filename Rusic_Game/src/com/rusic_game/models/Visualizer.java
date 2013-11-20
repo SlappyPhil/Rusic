@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.rusic_game.audio.AudioAnalyzer;
+import com.rusic_game.models.helper.CustomUserData;
 
 public class Visualizer {
 	private World world;
@@ -57,9 +58,9 @@ public class Visualizer {
 			groundBarDef.fixedRotation = true;
 			ceilingBarDef.fixedRotation = true;
 			groundBars[i] = world.createBody(groundBarDef);
-			groundBars[i].setUserData("boundary");
+			groundBars[i].setUserData(new CustomUserData("boundary"));
 			ceilingBars[i] = world.createBody(ceilingBarDef);
-			ceilingBars[i].setUserData("boundary");
+			ceilingBars[i].setUserData(new CustomUserData("boundary"));
 
 			groundBarFixtures[i] = groundBars[i].createFixture(fixtureDef);
 			groundBarFixtures[i].setUserData(0f);

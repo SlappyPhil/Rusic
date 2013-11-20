@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.rusic_game.models.helper.CustomUserData;
 
 public class Player extends InputAdapter {
 
@@ -48,7 +49,7 @@ public class Player extends InputAdapter {
 		fixtureDef.density = 3;
 
 		body = world.createBody(bodyDef);
-		body.setUserData("player");
+		body.setUserData(new CustomUserData("player"));
 		fixture = body.createFixture(fixtureDef);
 		shape.dispose();
 
@@ -68,10 +69,10 @@ public class Player extends InputAdapter {
 			body.applyForceToCenter(velocity, true);
 		}
 		if (collisionPause) {
-			body.setUserData("invulnerable");
+			body.setUserData(new CustomUserData("invulnerable"));
 			collisionTimer++;
 			if (collisionTimer > 1 * 60) {
-				body.setUserData("player");
+				body.setUserData(new CustomUserData("player"));
 				collisionPause = false;
 				collisionTimer = 0;
 				movementForce = 400;
@@ -79,11 +80,11 @@ public class Player extends InputAdapter {
 			}
 		}
 		if (invincible) {
-			body.setUserData("invulnerable");
+			body.setUserData(new CustomUserData("invulnerable"));
 			invincibleTimer++;
 			if (invincibleTimer > 5 * 60) {
 				invincible = false;
-				body.setUserData("player");
+				body.setUserData(new CustomUserData("player"));
 				invincibleTimer = 0;
 			}
 		}
