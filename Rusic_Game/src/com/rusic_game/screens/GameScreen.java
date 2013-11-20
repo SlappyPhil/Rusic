@@ -57,6 +57,8 @@ public class GameScreen implements Screen {
 	
 	static public int score;
 	private int currentScore;
+	private float decreaseScore = 0.9f;
+	private int diffiltyMultiplier = 1;
 	private String scoreName;
 	BitmapFont bitmapFontName;
 	private Timer timer;
@@ -91,11 +93,8 @@ public class GameScreen implements Screen {
 			
             public void run()
             {
-
                 score+=10;
             	System.out.println(score);
-        		
-
             }
         }, 0, 0.5f);
 	
@@ -109,9 +108,6 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() 
 	{
-		
-	    
-		
 		if (musicPath != null) 
 		{
 			analyzer = new AudioAnalyzer(musicPath, game.isAndroid);
@@ -283,25 +279,33 @@ public class GameScreen implements Screen {
 				final CustomUserData aData = (CustomUserData) bodyA.getUserData();
 				final CustomUserData bData = (CustomUserData) bodyB.getUserData();
 				if (aData.getUserDef().equals("player") && bData.getUserDef().equals("projectile")) {
+					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyB);
 				} else if (aData.getUserDef().equals("projectile") && bData.getUserDef().equals("player")) {
+					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyA);
 				}
 				if (aData.getUserDef().equals("left") && bData.getUserDef().equals("projectile")) {
+					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyB);
 				} else if (aData.getUserDef().equals("projectile") && bData.getUserDef().equals("left")) {
+					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyA);
 				}
 				if (aData.getUserDef().equals("iPowerUp") && bData.getUserDef().equals("projectile")) {
+					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyB);
 				} else if (aData.getUserDef().equals("projectile") && bData.getUserDef().equals("iPowerUp")) {
+					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyA);
 				}
 				if (aData.getUserDef().equals("player") && bData.getUserDef().equals("boundary")) {
 					// set variable in player to note a hit, update function
 					// handles post events
+					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					player.setHitBoundary(true);
 				} else if (aData.getUserDef().equals("boundary") && bData.getUserDef().equals("player")) {
+					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					player.setHitBoundary(true);
 				}
 				if (aData.getUserDef().equals("iPowerUp") && bData.getUserDef().equals("player")) {
