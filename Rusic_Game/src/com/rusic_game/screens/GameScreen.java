@@ -16,6 +16,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rusic_game.Rusic_Game;
 import com.rusic_game.models.Player;
@@ -41,6 +42,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
 
 public class GameScreen implements Screen {
 
@@ -50,6 +52,12 @@ public class GameScreen implements Screen {
 	private Box2DDebugRenderer debugRenderer;
 	private OrthographicCamera camera;
 	private List<Body> bodiesToRemove;
+	
+	static public int score;
+	private int currentScore;
+	private String scoreName;
+	BitmapFont bitmapFontName;
+	private Timer timer;
 
 	private int width, height;
 	private SpriteBatch spriteBatch;
@@ -72,11 +80,37 @@ public class GameScreen implements Screen {
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.spriteBatch = spriteBatch;
 		this.game = game;
+		score = 0;
+	    scoreName = "score: 0";
+	    bitmapFontName = new BitmapFont();
+	    timer = new Timer();
+	    timer.schedule(new Timer.Task() {
+			
+            public void run()
+            {
+
+                score+=10;
+            	System.out.println(score);
+        		
+
+            }
+        }, 0, 0.5f);
+	
 	}
 
+	public void score()
+	{
+		
+	}
+	
 	@Override
-	public void show() {
-		if (musicPath != null) {
+	public void show() 
+	{
+		
+	    
+		
+		if (musicPath != null) 
+		{
 			analyzer = new AudioAnalyzer(musicPath, game.isAndroid);
 		} else
 			analyzer = null;
@@ -262,7 +296,8 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+		
+	
 		visualizer.update();
 		player.update();
 
