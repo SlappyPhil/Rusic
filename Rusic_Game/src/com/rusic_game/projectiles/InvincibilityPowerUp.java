@@ -15,7 +15,7 @@ public class InvincibilityPowerUp {
     private Fixture fixture;
     public float powerUpRadius; 
     private float  randPosY;
-    private float  yMax= 13,  yMin = -13;
+    private float  yMax= 10,  yMin = -10;
 
     public InvincibilityPowerUp( World world, float radius) {
     	   powerUpRadius = radius;
