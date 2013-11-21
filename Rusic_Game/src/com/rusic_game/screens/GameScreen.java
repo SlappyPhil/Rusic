@@ -287,14 +287,11 @@ public class GameScreen implements Screen {
 				if (aData.getUserDef().equals("player") && bData.getUserDef().equals("projectile")) {
 					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyB);
+					ScoreScreen.deaths++;
 				} else if (aData.getUserDef().equals("projectile") && bData.getUserDef().equals("player")) {
 					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyA);
-				}
-				if (aData.getUserDef().equals("invulnerable") && bData.getUserDef().equals("projectile")) {
-					bodiesToRemove.add(bodyB);
-				} else if (aData.getUserDef().equals("projectile") && bData.getUserDef().equals("invulnerable")) {
-					bodiesToRemove.add(bodyA);
+					ScoreScreen.deaths++;
 				}
 				if (aData.getUserDef().equals("left") && bData.getUserDef().equals("projectile")) {
 					score = diffiltyMultiplier * (int) (score * decreaseScore);
@@ -314,17 +311,21 @@ public class GameScreen implements Screen {
 					// set variable in player to note a hit, update function
 					// handles post events
 					score = diffiltyMultiplier * (int) (score * decreaseScore);
+					ScoreScreen.deaths++;
 					player.setHitBoundary(true);
 				} else if (aData.getUserDef().equals("boundary") && bData.getUserDef().equals("player")) {
 					score = diffiltyMultiplier * (int) (score * decreaseScore);
+					ScoreScreen.deaths++;
 					player.setHitBoundary(true);
 				}
 				if (aData.getUserDef().equals("iPowerUp") && bData.getUserDef().equals("player")) {
 					player.setInvincible(true);
+					ScoreScreen.powerups++;
 					bodiesToRemove.add(bodyA);
 				} else if (bData.getUserDef().equals("iPowerUp") && aData.getUserDef().equals("player")) {
 					// set player invincible to true
 					player.setInvincible(true);
+					ScoreScreen.powerups++;
 					bodiesToRemove.add(bodyB);
 				}
 			}
