@@ -291,6 +291,11 @@ public class GameScreen implements Screen {
 					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyA);
 				}
+				if (aData.getUserDef().equals("invulnerable") && bData.getUserDef().equals("projectile")) {
+					bodiesToRemove.add(bodyB);
+				} else if (aData.getUserDef().equals("projectile") && bData.getUserDef().equals("invulnerable")) {
+					bodiesToRemove.add(bodyA);
+				}
 				if (aData.getUserDef().equals("left") && bData.getUserDef().equals("projectile")) {
 					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyB);
