@@ -1,4 +1,9 @@
-**Achievement trackers should be written first, since there are fewer entries, and a static number of them.**
-DISTANCE TRAVELED: 0
-POWERUPS GRABBED: 0
-[song title here]: [score here]
+DEATHS: 0
+POWERUPS: 0
+DISTANCE: 0
+
+Sample Song
+1080
+
+Sample Song 2
+4486

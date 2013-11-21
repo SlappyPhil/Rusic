@@ -2,6 +2,7 @@ package com.rusic_game.screens;
 
 	import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.badlogic.gdx.Gdx;
@@ -17,11 +18,18 @@ import com.rusic_game.Rusic_Game;
 		private SpriteBatch spriteBatch;
 		private Texture settingsScreenTexture;
 		private int width, height;
+		public int deaths;
+		public int powerups;
+		public int distance;
+		public ArrayList<String> songs;
+		public ArrayList<Integer> highscores;
 		
 		//CONSTRUCTOR
 		public ScoreScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 			this.game = game;
 			this.spriteBatch = spriteBatch;
+			songs = new ArrayList();
+			highscores = new ArrayList();
 			importData();
 		}
 		
@@ -29,6 +37,21 @@ import com.rusic_game.Rusic_Game;
 		public void importData(){
 			String data = Gdx.files.internal("data/scores.txt").readString(); // THIS STRING HOLDS THE DATA FROM SCORES FILE
 			Scanner s = new Scanner(data);
+			s.next();
+			deaths = s.nextInt();
+			s.next();
+			powerups = s.nextInt();
+			s.next();
+			distance = s.nextInt();
+			s.nextLine();
+			while(s.hasNext()){
+				s.nextLine();
+				songs.add(s.nextLine());
+				highscores.add(s.nextInt());
+				if(s.hasNext()){
+					s.nextLine();
+				}
+			}
 		}
 		
 		@Override
