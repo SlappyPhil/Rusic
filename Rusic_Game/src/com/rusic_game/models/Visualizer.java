@@ -39,7 +39,6 @@ public class Visualizer {
 		fixtureDef.restitution = 0f;
 		fixtureDef.friction = .5f;
 		fixtureDef.density = 1000000;
-		delay = 0;
 
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox((width / numBars) / 2, 8);
