@@ -25,7 +25,6 @@ public class Visualizer {
 	private Fixture[] groundBarFixtures;
 	private Fixture[] ceilingBarFixtures;
 	private FixtureDef fixtureDef;
-	private int delay;
 
 	public Visualizer(World world, AudioAnalyzer analyzer, Rusic_Game game) {
 		this.world = world;
