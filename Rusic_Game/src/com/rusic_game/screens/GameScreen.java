@@ -73,7 +73,9 @@ public class GameScreen implements Screen {
 	private Rusic_Game game;
 	private AudioAnalyzer analyzer;
 	public String musicPath;
-
+	
+	public String difficulty;
+	
 	private Array<Circles> circles = new Array<Circles>();
 	private Circles circle;
 	private Squares square;
