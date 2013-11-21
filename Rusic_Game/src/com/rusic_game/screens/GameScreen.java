@@ -388,7 +388,7 @@ public class GameScreen implements Screen {
 		// controller.update(delta);
 		// renderer.render();
 		
-		if(analyzer.playing == false){
+		if(analyzer != null && analyzer.playing == false){
 			timer.clear();
 			timer = null;
 			ScoreScreen.updateScore(this.currentScore);
