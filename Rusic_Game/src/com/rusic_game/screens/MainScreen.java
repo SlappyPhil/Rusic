@@ -65,7 +65,7 @@ public class MainScreen implements Screen, InputProcessor {
 		textButtonStyle.font = white;
 		textButtonStyle.fontColor = Color.BLACK;
 		buttonPlay = new TextButton("PLAY", textButtonStyle);
-		buttonSettings = new TextButton("SETTINGS", textButtonStyle);
+		buttonSettings = new TextButton("SCORES", textButtonStyle);
 		
 		
 		//PLAY BUTTON FUNCTIONALITY
