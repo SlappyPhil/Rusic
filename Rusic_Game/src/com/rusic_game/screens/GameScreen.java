@@ -91,19 +91,7 @@ public class GameScreen implements Screen {
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.spriteBatch = spriteBatch;
 		this.game = game;
-		score = 0;
-	    scoreName = "score: 0";
 	    bitmapFontName = new BitmapFont();
-	    timer = new Timer();
-	    timer.schedule(new Timer.Task() {
-			
-            public void run()
-            {
-                score+=10;
-            	System.out.println(score);
-            }
-        }, 0, 0.5f);
-	    
 	}
 
 	public void score()
@@ -127,6 +115,20 @@ public class GameScreen implements Screen {
 
 		player = new Player(world, 0, 1, 1);
 		visualizer = new Visualizer(world, analyzer, game);
+		
+		score = 0;
+	    scoreName = "score: 0";
+		
+		timer = new Timer();
+	    timer.schedule(new Timer.Task() {
+			
+            public void run()
+            {
+                score+=10;
+            	System.out.println(score);
+            }
+        }, 0, 0.5f);
+	    
 
 		spriteBatch = new SpriteBatch();
 		Gdx.input.setInputProcessor(new InputMultiplexer(new InputAdapter() {
@@ -337,7 +339,6 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-	
 		visualizer.update();
 		player.update();
 	// Time interval generation of enemies/power ups
@@ -386,6 +387,13 @@ public class GameScreen implements Screen {
 		}
 		// controller.update(delta);
 		// renderer.render();
+		
+		if(analyzer.playing == false){
+			timer.clear();
+			timer = null;
+			ScoreScreen.updateScore(this.currentScore);
+			game.setScreen(game.musicSelectScreen);
+		}
 
 	}
 

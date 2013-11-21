@@ -29,6 +29,7 @@ import com.rusic_game.Rusic_Game;
 		public static int distance;
 		public static ArrayList<String> songs;
 		public static ArrayList<Integer> highscores;
+		public static String songHolder;
 		
 		//CONSTRUCTOR
 		public ScoreScreen(Rusic_Game game, SpriteBatch spriteBatch) {
@@ -88,7 +89,30 @@ import com.rusic_game.Rusic_Game;
 			FileHandle file = Gdx.files.local("scores.txt");
 			file.writeString(data, false);
 		}
-			
+		
+		public static void updateSong(String song){
+			songHolder = song;
+		}
+		
+		public static void updateScore(int score){
+			int count = 0;
+			for(String s : songs){
+				if(s.compareTo(songHolder) == 0) highscores.set(count, score);
+				count++;
+				return;
+			}
+			if(songs.size() < 9){
+				songs.add(songHolder);
+				highscores.add(score);
+			}
+			else if(songs.size() == 9){
+				songs.add(0,songHolder);
+				songs.remove(10);
+				highscores.add(0,score);
+				highscores.remove(10);
+				
+			}
+		}
 		
 		@Override
 		public void render(float delta) {
