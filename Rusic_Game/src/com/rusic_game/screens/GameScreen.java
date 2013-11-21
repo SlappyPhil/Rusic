@@ -45,6 +45,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.TimeUtils;
+import java.util.Random;
 
 public class GameScreen implements Screen {
 
@@ -62,7 +64,6 @@ public class GameScreen implements Screen {
 	private String scoreName;
 	BitmapFont bitmapFontName;
 	private Timer timer;
-
 	private int width, height;
 	private SpriteBatch spriteBatch;
 	private final float TIMESTEP = 1 / 60f;
@@ -83,6 +84,9 @@ public class GameScreen implements Screen {
 	private InvincibilityPowerUp iPowerUp;
 
 	private float circleSize = 5;
+	
+	private long projectileTimer1= 0;
+	private long projectileTimer2 = 0 ;
 
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.spriteBatch = spriteBatch;
@@ -99,7 +103,7 @@ public class GameScreen implements Screen {
             	System.out.println(score);
             }
         }, 0, 0.5f);
-	
+	    
 	}
 
 	public void score()
@@ -330,7 +334,35 @@ public class GameScreen implements Screen {
 	
 		visualizer.update();
 		player.update();
-
+	// Time interval generation of enemies/power ups
+		Random randomGenerator = new Random();
+	    int randomInt = randomGenerator.nextInt(100);
+	    int timeModifier=2500;
+	    if(difficulty.equals("Easy")) timeModifier = 2000;
+	    if(difficulty.equals("Normal")) timeModifier = 1000;
+	    if(difficulty.equals("Hard")) timeModifier = 500;
+		projectileTimer2 = TimeUtils.millis();
+		if((projectileTimer2-projectileTimer1)>= timeModifier){
+			if((randomInt >= 0) && (randomInt< 20) ){
+				circle = new Circles(world, 1);
+				circle.update();
+			}
+			else if((randomInt >= 20) && (randomInt< 60) ){
+				square = new Squares(world);
+				square.update();
+			}
+			//else if((randomInt >= 40) && (randomInt< 60) ){
+				//triangle = new Triangles(world);
+				//triangle.update();
+			//}
+			else if((randomInt >= 60) && (randomInt< 80) ){
+				//iPowerUp = new InvincibilityPowerUp(world, 0.2f);
+				//iPowerUp.update();
+			}
+			
+			projectileTimer1 = projectileTimer2;
+		}
+	// end 
 		if (Gdx.input.justTouched()) {
 			analyzer.togglePlay();
 		}
