@@ -161,7 +161,8 @@ public class MusicSelectScreen implements Screen{
 				}
 				game.gameScreen.difficulty = difficulty_choices.get(dif_SelectBox.getSelectionIndex());
 				System.out.println(game.gameScreen.difficulty);
-				ScoreScreen.updateSong(musicinfo.get(dif_SelectBox.getSelectionIndex()));
+				ScoreScreen.updateSong(musicinfo.get(musicSelectBox.getSelectionIndex()));
+				System.out.println(musicinfo.get(musicSelectBox.getSelectionIndex()));
 				game.setScreen(game.gameScreen);        
 		}
 });
