@@ -1,7 +1,11 @@
 package com.rusic_game.screens;
 
-	import java.io.File;
+	import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,6 +14,8 @@ import com.badlogic.gdx.Gdx;
 	import com.badlogic.gdx.graphics.GL20;
 	import com.badlogic.gdx.graphics.Texture;
 	import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+	import com.badlogic.gdx.files.*;
 import com.rusic_game.Rusic_Game;
 
 	public class ScoreScreen implements Screen{
@@ -31,28 +37,62 @@ import com.rusic_game.Rusic_Game;
 			songs = new ArrayList();
 			highscores = new ArrayList();
 			importData();
+			deaths++;
+			powerups++;
+			distance++;
+			exportData();
 		}
 		
 		//THIS METHOD WILL BE USED TO READ IN DATA FROM assets/data/scores.txt
 		public void importData(){
-			String data = Gdx.files.internal("data/scores.txt").readString(); // THIS STRING HOLDS THE DATA FROM SCORES FILE
-			Scanner s = new Scanner(data);
-			s.next();
-			deaths = s.nextInt();
-			s.next();
-			powerups = s.nextInt();
-			s.next();
-			distance = s.nextInt();
-			s.nextLine();
-			while(s.hasNext()){
+			try{
+				String data = Gdx.files.local("scores.txt").readString(); // THIS STRING HOLDS THE DATA FROM SCORES FILE
+				Scanner s = new Scanner(data);
+				s.next();
+				deaths = s.nextInt();
+				s.next();
+				powerups = s.nextInt();
+				s.next();
+				distance = s.nextInt();
 				s.nextLine();
-				songs.add(s.nextLine());
-				highscores.add(s.nextInt());
-				if(s.hasNext()){
+				while(s.hasNext()){
 					s.nextLine();
+					songs.add(s.nextLine());
+					highscores.add(s.nextInt());
+					if(s.hasNext()){
+						s.nextLine();
+					}
 				}
 			}
+			catch(GdxRuntimeException e){
+				System.out.println("Creating local save file...");
+			}
 		}
+		
+		public void exportData(){
+			String data = "";
+			data += "DEATHS: ";
+			data += deaths;
+			data += "\n";
+			data += "POWERUPS: ";
+			data += powerups;
+			data += "\n";
+			data += "DISTANCE: ";
+			data += distance;
+			data += "\n";
+			int count = 0;
+			for(String song : songs){
+				data += "\n";
+				data += song;
+				data += "\n";
+				data += highscores.get(count);
+				count++;
+				data += "\n";
+			}
+			FileHandle file = Gdx.files.local("scores.txt");
+			file.writeString(data, false);
+		}
+			
 		
 		@Override
 		public void render(float delta) {
