@@ -24,11 +24,11 @@ import com.rusic_game.Rusic_Game;
 		private SpriteBatch spriteBatch;
 		private Texture settingsScreenTexture;
 		private int width, height;
-		public int deaths;
-		public int powerups;
-		public int distance;
-		public ArrayList<String> songs;
-		public ArrayList<Integer> highscores;
+		public static int deaths;
+		public static int powerups;
+		public static int distance;
+		public static ArrayList<String> songs;
+		public static ArrayList<Integer> highscores;
 		
 		//CONSTRUCTOR
 		public ScoreScreen(Rusic_Game game, SpriteBatch spriteBatch) {
@@ -37,10 +37,6 @@ import com.rusic_game.Rusic_Game;
 			songs = new ArrayList();
 			highscores = new ArrayList();
 			importData();
-			deaths++;
-			powerups++;
-			distance++;
-			exportData();
 		}
 		
 		//THIS METHOD WILL BE USED TO READ IN DATA FROM assets/data/scores.txt
