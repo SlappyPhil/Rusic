@@ -66,7 +66,7 @@ import com.rusic_game.Rusic_Game;
 			}
 		}
 		
-		public void exportData(){
+		public static void exportData(){
 			String data = "";
 			data += "DEATHS: ";
 			data += deaths;
@@ -97,9 +97,11 @@ import com.rusic_game.Rusic_Game;
 		public static void updateScore(int score){
 			int count = 0;
 			for(String s : songs){
-				if(s.compareTo(songHolder) == 0) highscores.set(count, score);
+				if(s.compareTo(songHolder) == 0){
+					highscores.set(count, score);
+					return;
+				}
 				count++;
-				return;
 			}
 			if(songs.size() < 9){
 				songs.add(songHolder);

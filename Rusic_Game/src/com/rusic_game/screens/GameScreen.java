@@ -388,10 +388,11 @@ public class GameScreen implements Screen {
 		// controller.update(delta);
 		// renderer.render();
 		
-		if(analyzer != null && analyzer.playing == false){
+		if(analyzer.playing == false){
 			timer.clear();
 			timer = null;
-			ScoreScreen.updateScore(this.currentScore);
+			ScoreScreen.updateScore(score);
+			ScoreScreen.exportData();
 			game.setScreen(game.musicSelectScreen);
 		}
 
