@@ -51,7 +51,7 @@ public class InvincibilityPowerUp {
     }
      public void update() {
          body.setBullet(true);
-         body.setLinearVelocity(-70, 0);
+         body.setLinearVelocity(-45, 0);
         // body.applyForceToCenter(0, 100);
          body.setGravityScale(0);
          

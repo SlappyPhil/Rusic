@@ -25,7 +25,6 @@ public class Visualizer {
 	private Fixture[] groundBarFixtures;
 	private Fixture[] ceilingBarFixtures;
 	private FixtureDef fixtureDef;
-	private int delay;
 
 	public Visualizer(World world, AudioAnalyzer analyzer, Rusic_Game game) {
 		this.world = world;
@@ -40,10 +39,9 @@ public class Visualizer {
 		fixtureDef.restitution = 0f;
 		fixtureDef.friction = .5f;
 		fixtureDef.density = 1000000;
-		delay = 0;
 
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox((width / numBars) / 2, 10);
+		shape.setAsBox((width / numBars) / 2, 8);
 
 		fixtureDef.shape = shape;
 
@@ -82,13 +80,13 @@ public class Visualizer {
 				// PolygonShape shape = new PolygonShape();
 
 				if (i == numBars - 1) {
-					groundBars[i].setTransform(new Vector2(-width / 2 + i * width / numBars, -height / 1.2f + scale(avg(0, nb)) / 2), 0);
+					groundBars[i].setTransform(new Vector2(-width / 2 + i * width / numBars, -height / 1.3f + scale(avg(0, nb)) / 2), 0);
 					groundBarFixtures[i].setUserData(scale(avg(0, nb)) / 2);
 					ceilingBars[i].setTransform(new Vector2(-width / 2 + i * width / numBars, +height / 1.3f - scale(avg(0, nb)) / 2), 0);
 				} else {
 					float h = (Float) groundBarFixtures[i + 1].getUserData();
 
-					groundBars[i].setTransform(new Vector2(-width / 2 + i * width / numBars, -height / 1.2f + h), 0);
+					groundBars[i].setTransform(new Vector2(-width / 2 + i * width / numBars, -height / 1.3f + h), 0);
 					groundBarFixtures[i].setUserData(h);
 					ceilingBars[i].setTransform(new Vector2(-width / 2 + i * width / numBars, +height / 1.3f - h), 0);
 				}
@@ -98,10 +96,10 @@ public class Visualizer {
 
 	private float scale(float x) {
 		if(game.gameScreen.difficulty.equals("Easy")){
-			return x/256 * height * 0.8f;
+			return x/256 * height * 1.0f;
 		}
 		else if(game.gameScreen.difficulty.equals("Normal")){
-			return x/256 * height * 1.0f;
+			return x/256 * height * 1.5f;
 		}
 		else{
 			return x / 256 * height * 2.0f;

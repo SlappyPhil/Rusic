@@ -13,7 +13,7 @@ public class AudioAnalyzer {
         float[] spectrum;
         Mpg123Decoder decoder;
         AudioDevice device;
-        boolean playing = false;
+        public boolean playing = false;
         public boolean isAndroid;
         
         public AudioAnalyzer(String file, boolean isAndroid) {
