@@ -8,12 +8,15 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.rusic_game.Rusic_Game;
 import com.rusic_game.audio.AudioAnalyzer;
 import com.rusic_game.models.helper.CustomUserData;
+import com.rusic_game.screens.GameScreen;
 
 public class Visualizer {
 	private World world;
 	private AudioAnalyzer analyzer;
+	private Rusic_Game game;
 	private int numBars = 50;
 	private float width = 52, height = 28.6f;
 	private float[] spectrum;
@@ -24,9 +27,10 @@ public class Visualizer {
 	private FixtureDef fixtureDef;
 	private int delay;
 
-	public Visualizer(World world, AudioAnalyzer analyzer) {
+	public Visualizer(World world, AudioAnalyzer analyzer, Rusic_Game game) {
 		this.world = world;
 		this.analyzer = analyzer;
+		this.game = game;
 		spectrum = new float[2048];
 		groundBars = new Body[numBars];
 		ceilingBars = new Body[numBars];
@@ -93,7 +97,15 @@ public class Visualizer {
 	}
 
 	private float scale(float x) {
-		return x / 256 * height * 1.0f;
+		if(game.gameScreen.difficulty.equals("Easy")){
+			return x/256 * height * 0.8f;
+		}
+		else if(game.gameScreen.difficulty.equals("Normal")){
+			return x/256 * height * 1.0f;
+		}
+		else{
+			return x / 256 * height * 2.0f;
+		}
 	}
 
 	private float avg(int pos, int nb) {

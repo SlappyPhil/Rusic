@@ -122,7 +122,7 @@ public class GameScreen implements Screen {
 		// renderer = new WorldRenderer(world, spriteBatch, false);
 
 		player = new Player(world, 0, 1, 1);
-		visualizer = new Visualizer(world, analyzer);
+		visualizer = new Visualizer(world, analyzer, game);
 
 		spriteBatch = new SpriteBatch();
 		Gdx.input.setInputProcessor(new InputMultiplexer(new InputAdapter() {
