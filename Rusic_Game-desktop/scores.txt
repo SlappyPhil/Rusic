@@ -1,5 +1,5 @@
-DEATHS: 25
-POWERUPS: 7
+DEATHS: 35
+POWERUPS: 17
 DISTANCE: 0
 
 NONE
@@ -9,4 +9,4 @@ Test Song 1
 350
 
 Test Song 2
-134
+1205

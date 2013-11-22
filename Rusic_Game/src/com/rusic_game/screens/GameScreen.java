@@ -93,7 +93,7 @@ public class GameScreen implements Screen {
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.spriteBatch = spriteBatch;
 		this.game = game;
-		bitmapFontName = new BitmapFont();
+		bitmapFontName = new BitmapFont(Gdx.files.internal("font/white32.fnt.txt"));
 		timer = new Timer();
 		timer.schedule(new Timer.Task() {
 
@@ -438,6 +438,16 @@ public class GameScreen implements Screen {
 		// controller.update(delta);
 		// renderer.render();
 
+		if(analyzer != null)
+		{
+		spriteBatch.begin();
+	
+			bitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			bitmapFontName.draw(spriteBatch, Integer.toString(score), 25, 25);
+		
+		spriteBatch.end();
+		}
+		
 		if (analyzer != null && analyzer.playing == false) {
 			timer.clear();
 			timer.stop();
