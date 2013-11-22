@@ -43,7 +43,7 @@ public class MainScreen implements Screen, InputProcessor {
 
 	@Override
 	public void show() {
-		mainScreenTexture = new Texture(Gdx.files.internal("images/MainScreen.png"));
+		mainScreenTexture = new Texture(Gdx.files.internal("images/MainScreen_new.png"));
 		stage = new Stage();
 	    
 		//INPUT PROCESSOR

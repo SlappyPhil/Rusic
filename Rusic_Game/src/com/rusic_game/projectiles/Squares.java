@@ -1,5 +1,8 @@
 package com.rusic_game.projectiles;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -25,7 +28,7 @@ public class Squares {
 
 	private float randPosY;
 	private float yMax = 13, yMin = -1;
-	private float randSizeMax = 2, randSizeMin = .5f, randSize;
+	private float randSizeMax = 1.5f, randSizeMin = .5f, randSize;
 	public int squareData = 2;
 
 	public Squares(World world) {
@@ -39,7 +42,12 @@ public class Squares {
 		bodyDef.fixedRotation = true;
 
 		PolygonShape squareShape = new PolygonShape();
+		bodyDef.fixedRotation = true;
+		
+		Sprite squareSprite = new Sprite(new Texture(Gdx.files.internal("images/Square.png")));
+		squareSprite.setSize(randSize * 6, randSize * 6);
 
+		
 		squareShape.setAsBox(randSize, randSize);
 
 		FixtureDef fixtureDef = new FixtureDef();
@@ -50,7 +58,7 @@ public class Squares {
 		fixtureDef.isSensor = false;
 
 		body = world.createBody(bodyDef);
-		body.setUserData(new CustomUserData("projectile"));
+		body.setUserData(new CustomUserData("projectile", squareSprite));
 		fixture = body.createFixture(fixtureDef);
 
 		squareShape.dispose();

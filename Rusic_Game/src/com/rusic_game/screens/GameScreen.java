@@ -16,7 +16,9 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.rusic_game.Rusic_Game;
 import com.rusic_game.models.Player;
@@ -28,6 +30,8 @@ import com.rusic_game.projectiles.InvincibilityPowerUp;
 import com.rusic_game.projectiles.Squares;
 import com.rusic_game.projectiles.Triangles;
 import com.rusic_game.audio.AudioAnalyzer;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -78,12 +82,16 @@ public class GameScreen implements Screen {
 
 	public String difficulty;
 
-	private Array<Circles> circles = new Array<Circles>();
+	
 	private Circles circle;
 	private Squares square;
 	private Triangles triangle;
 	private InvincibilityPowerUp iPowerUp;
 	private BombPowerUp bPowerUp;
+	
+	public Texture backgroundTexture = new Texture(Gdx.files.internal("images/backgroud_New.png"));
+	private Array<Body> tmpBodies = new Array<Body>();
+
 
 	private float circleSize = 5;
 
@@ -135,7 +143,7 @@ public class GameScreen implements Screen {
 					game.setScreen(new MainScreen(game, spriteBatch));
 					break;
 				case Keys.C:
-					circle = new Circles(world, 1);
+					circle = new Circles(world);
 					circle.update();
 					break;
 				case Keys.S:
@@ -402,7 +410,7 @@ public class GameScreen implements Screen {
 		projectileTimer2 = TimeUtils.millis();
 		if ((projectileTimer2 - projectileTimer1) >= timeModifier) {
 			if ((randomInt >= 0) && (randomInt < 20)) {
-				circle = new Circles(world, 1);
+				circle = new Circles(world);
 				circle.update();
 			} else if ((randomInt >= 20) && (randomInt < 60)) {
 				square = new Squares(world);
@@ -423,7 +431,6 @@ public class GameScreen implements Screen {
 
 			projectileTimer1 = projectileTimer2;
 		}
-<<<<<<< HEAD
 	// end 
 		/*
 		if (Gdx.input.justTouched()) {
@@ -449,15 +456,50 @@ public class GameScreen implements Screen {
 		// controller.update(delta);
 		// renderer.render();
 
+		
+		
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.begin();
+		spriteBatch.draw(backgroundTexture, -25.5f, -14f, camera.viewportWidth, camera.viewportHeight);
+		
+		spriteBatch.end();
+		
+		
+		
+		spriteBatch.begin();
+		
+		world.getBodies(tmpBodies);
+		for(Body body : tmpBodies)
+			if(body.getUserData() instanceof CustomUserData) {
+				CustomUserData data = (CustomUserData) body.getUserData();
+
+				Sprite sprite = data.getSprite();
+				try{
+					sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getHeight() / 2);
+					sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+					
+					sprite.draw(spriteBatch);
+				}catch(NullPointerException e){}	
+			}
+		spriteBatch.end();
+		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(),  Gdx.graphics.getHeight());
+
+		
+		spriteBatch.setProjectionMatrix(normalProjection);
 		if(analyzer != null)
 		{
 		spriteBatch.begin();
 	
 			bitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			
 			bitmapFontName.draw(spriteBatch, Integer.toString(score), 25, 25);
 		
 		spriteBatch.end();
 		}
+		
+		
+		
+		
 		
 		if (analyzer != null && analyzer.playing == false) {
 			timer.clear();
@@ -488,7 +530,7 @@ public class GameScreen implements Screen {
 			timer.clear();
 			timer.stop();
 		}
-		score = 0;
+		//score = 0;
 		Gdx.input.setInputProcessor(null);
 	}
 

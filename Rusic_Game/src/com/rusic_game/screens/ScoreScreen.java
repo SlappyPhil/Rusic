@@ -61,7 +61,7 @@ import com.rusic_game.Rusic_Game;
 					}
 				}
 			}
-			catch(GdxRuntimeException e){
+			catch(Exception e){
 				System.out.println("Creating local save file...");
 			}
 		}

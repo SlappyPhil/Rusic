@@ -29,7 +29,7 @@ public class SplashScreen implements Screen{
 	    public void show() {
 	      
 		 // THIS IS WHERE THE SPLASH SCREEN IMAGE IS.				
-	    	splashScreenTexture = new Texture(Gdx.files.internal("images/splash3.png"));
+	    	splashScreenTexture = new Texture(Gdx.files.internal("images/SplashScreen_new.png"));
 	           
 		}
 	@Override

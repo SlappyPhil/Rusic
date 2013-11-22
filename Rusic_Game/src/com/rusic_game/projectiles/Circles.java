@@ -1,5 +1,8 @@
 package com.rusic_game.projectiles;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -27,14 +30,17 @@ public class Circles   {
     private Fixture fixture;
     public float circleRadius; 
     private float  randPosY;
-    private float  yMax= 13,  yMin = -13;
-    private float randSizeMax= 2, randSizeMin = .5f, randSize;
-    public int circleData = 3;
+    private float  yMax= 10,  yMin = -10;
+    private float randSizeMax= 1.5f, randSizeMin = .5f, randSize;
+   
     
     
 
-    public Circles( World world, float radius) {
-    	   circleRadius = radius;
+    public Circles( World world) {
+    	
+    	   Sprite circleSprite = new Sprite(new Texture(Gdx.files.internal("images/circleTexture.png")));
+    	   circleSprite.setSize(randSize * 5, randSize * 5);
+    	   
     	   
     	
     	    randSize = randSizeMin + (float)(Math.random() * ((randSizeMax - randSizeMin) + 1.0));
@@ -48,7 +54,7 @@ public class Circles   {
 
             CircleShape circleShape = new CircleShape();
             
-			circleShape.setRadius(circleRadius);
+			circleShape.setRadius(randSize);
 
             FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = circleShape;
@@ -60,7 +66,7 @@ public class Circles   {
             
 			
             body = world.createBody(bodyDef);
-            body.setUserData(new CustomUserData("projectile"));
+            body.setUserData(new CustomUserData("projectile", circleSprite));
             fixture = body.createFixture(fixtureDef);
             
            

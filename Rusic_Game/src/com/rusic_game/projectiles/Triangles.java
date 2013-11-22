@@ -1,5 +1,8 @@
 package com.rusic_game.projectiles;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -31,9 +34,13 @@ public class Triangles {
 		}
 		vertices[0].set(0, 0);
 
-		vertices[1].set(1, 0);
+		vertices[1].set(2, 0);
 
-		vertices[2].set(0, 1);
+		vertices[2].set(1, 2);
+		
+		Sprite triSprite = new Sprite(new Texture(Gdx.files.internal("images/triangleBlack.png")));
+		triSprite.setSize(2, 2);
+
 		PolygonShape shape = new PolygonShape();
 
 		shape.set(vertices);
@@ -54,7 +61,7 @@ public class Triangles {
 		fixtureDef.isSensor = false;
 
 		body = world.createBody(bodyDef);
-		body.setUserData(new CustomUserData("projectile"));
+		body.setUserData(new CustomUserData("projectile", triSprite));
 		fixture = body.createFixture(fixtureDef);
 
 		shape.dispose();

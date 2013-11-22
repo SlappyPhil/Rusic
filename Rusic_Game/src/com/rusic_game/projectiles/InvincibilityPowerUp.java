@@ -1,5 +1,8 @@
 package com.rusic_game.projectiles;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -18,6 +21,8 @@ public class InvincibilityPowerUp {
     private float  yMax= 10,  yMin = -10;
 
     public InvincibilityPowerUp( World world, float radius) {
+    	Sprite invSprite = new Sprite(new Texture(Gdx.files.internal("images/greenShield.png")));
+	       invSprite.setSize(3, 3);
                powerUpRadius = radius;
                 
                   randPosY = yMin + (float)(Math.random() * ((yMax - yMin) + 1.0));
@@ -43,7 +48,7 @@ public class InvincibilityPowerUp {
             body = world.createBody(bodyDef);
             fixture = body.createFixture(fixtureDef);
             
-            body.setUserData(new CustomUserData("iPowerUp"));
+            body.setUserData(new CustomUserData("iPowerUp", invSprite));
             
             circleShape.dispose();
             

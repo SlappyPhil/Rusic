@@ -1,5 +1,8 @@
 package com.rusic_game.models;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -57,12 +60,15 @@ public class Visualizer {
 				groundBarDef.position.set(width * i / numBars - width / 2, -height);
 				ceilingBarDef.position.set(width * i / numBars - width / 2, height);
 			}
+			 Sprite boundarySprite = new Sprite(new Texture(Gdx.files.internal("images/treeSoundWaveBlack.png")));
+	    	    boundarySprite.setSize(5,20);
+
 			groundBarDef.fixedRotation = true;
 			ceilingBarDef.fixedRotation = true;
 			groundBars[i] = world.createBody(groundBarDef);
-			groundBars[i].setUserData(new CustomUserData("boundary"));
+			groundBars[i].setUserData(new CustomUserData("boundary", boundarySprite));
 			ceilingBars[i] = world.createBody(ceilingBarDef);
-			ceilingBars[i].setUserData(new CustomUserData("boundary"));
+			ceilingBars[i].setUserData(new CustomUserData("boundary", boundarySprite));
 
 			groundBarFixtures[i] = groundBars[i].createFixture(fixtureDef);
 			groundBarFixtures[i].setUserData(0f);

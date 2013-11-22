@@ -1,5 +1,8 @@
 package com.rusic_game.projectiles;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -18,7 +21,10 @@ public class BombPowerUp {
         private float yMax = 10, yMin = -10;
 
         public BombPowerUp(World world, float radius) {
-                powerUpRadius = radius;
+        		Sprite bSprite = new Sprite(new Texture(Gdx.files.internal("images/bomb_new.png")));
+        		bSprite.setSize(3, 3);
+ 	       
+                powerUpRadius = 3;
 
                 randPosY = yMin + (float) (Math.random() * ((yMax - yMin) + 1.0));
 
@@ -41,7 +47,7 @@ public class BombPowerUp {
                 body = world.createBody(bodyDef);
                 fixture = body.createFixture(fixtureDef);
 
-                body.setUserData(new CustomUserData("bPowerUp"));
+                body.setUserData(new CustomUserData("bPowerUp", bSprite));
 
                 circleShape.dispose();
 
