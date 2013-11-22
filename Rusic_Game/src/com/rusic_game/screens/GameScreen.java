@@ -82,6 +82,7 @@ public class GameScreen implements Screen {
 
 	public String difficulty;
 
+	float score_Difficulty_Modifier= 1;
 	
 	private Circles circle;
 	private Squares square;
@@ -101,6 +102,7 @@ public class GameScreen implements Screen {
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.spriteBatch = spriteBatch;
 		this.game = game;
+		
 		bitmapFontName = new BitmapFont(Gdx.files.internal("font/white32.fnt.txt"));
 		timer = new Timer();
 		timer.schedule(new Timer.Task() {
@@ -304,7 +306,14 @@ public class GameScreen implements Screen {
 						.getUserData();
 				final CustomUserData bData = (CustomUserData) bodyB
 						.getUserData();
-
+				
+				if (difficulty.equals("Easy"))
+					score_Difficulty_Modifier = 1.0f;
+				if (difficulty.equals("Normal"))
+					score_Difficulty_Modifier = 0.9f;
+				if (difficulty.equals("Hard"))
+					score_Difficulty_Modifier = 0.8f;
+				
 				// OBJECTS THAT HIT THE LEFT BOUNDARY
 				if (aData.getUserDef().equals("left")
 						&& bData.getUserDef().equals("projectile")) {
@@ -335,18 +344,18 @@ public class GameScreen implements Screen {
 								.getUserDef().equals("player"))) {
 					// set variable in player to note a hit, update function
 					// handles post events
-					score = diffiltyMultiplier * (int) (score * decreaseScore);
+					score =  (int) (score_Difficulty_Modifier * score * decreaseScore);
 					ScoreScreen.deaths++;
 					player.setHitBoundary(true);
 				}
 				if (aData.getUserDef().equals("player")
 						&& bData.getUserDef().equals("projectile")) {
-					score = diffiltyMultiplier * (int) (score * decreaseScore);
+					score = (int) (score_Difficulty_Modifier *score * decreaseScore);
 					bodiesToRemove.add(bodyB);
 					ScoreScreen.deaths++;
 				} else if (aData.getUserDef().equals("projectile")
 						&& bData.getUserDef().equals("player")) {
-					score = diffiltyMultiplier * (int) (score * decreaseScore);
+					score = (int) (score_Difficulty_Modifier * score * decreaseScore);
 					bodiesToRemove.add(bodyA);
 					ScoreScreen.deaths++;
 				}
@@ -413,17 +422,17 @@ public class GameScreen implements Screen {
 			timeModifier = 500;
 		projectileTimer2 = TimeUtils.millis();
 		if ((projectileTimer2 - projectileTimer1) >= timeModifier) {
-			if ((randomInt >= 0) && (randomInt < 20)) {
+			if ((randomInt >= 0) && (randomInt < 40)) {
 				circle = new Circles(world);
 				circle.update();
-			} else if ((randomInt >= 20) && (randomInt < 60)) {
+			} else if ((randomInt >= 40) && (randomInt < 80)) {
 				square = new Squares(world);
 				square.update();
+			 }
+			 else if((randomInt >= 80) && (randomInt< 90) ){
+			 triangle = new Triangles(world);
+			 triangle.update();
 			}
-			// else if((randomInt >= 40) && (randomInt< 60) ){
-			// triangle = new Triangles(world);
-			// triangle.update();
-			// }
 			else if ((randomInt >= 90) && (randomInt < 95)) {
 				iPowerUp = new InvincibilityPowerUp(world, 0.2f);
 				iPowerUp.update();

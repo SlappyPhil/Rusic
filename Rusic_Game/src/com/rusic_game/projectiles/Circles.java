@@ -38,13 +38,13 @@ public class Circles   {
 
     public Circles( World world) {
     	
-    	   Sprite circleSprite = new Sprite(new Texture(Gdx.files.internal("images/circleTexture.png")));
-    	   circleSprite.setSize(randSize * 5, randSize * 5);
     	   
     	   
-    	
     	    randSize = randSizeMin + (float)(Math.random() * ((randSizeMax - randSizeMin) + 1.0));
     	    randPosY = yMin + (float)(Math.random() * ((yMax - yMin) + 1.0));
+    	    
+    	    Sprite circleSprite = new Sprite(new Texture(Gdx.files.internal("images/circleTexture.png")));
+     	   circleSprite.setSize(randSize * 5, randSize * 5);
     	    
             BodyDef bodyDef = new BodyDef();
             bodyDef.type = BodyType.DynamicBody;
