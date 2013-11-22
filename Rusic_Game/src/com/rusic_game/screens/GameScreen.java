@@ -140,6 +140,10 @@ public class GameScreen implements Screen {
 			public boolean keyDown(int keycode) {
 				switch (keycode) {
 				case Keys.ESCAPE:
+					timer.clear();
+					timer.stop();
+					ScoreScreen.updateScore(score);
+					ScoreScreen.exportData();
 					game.setScreen(new MainScreen(game, spriteBatch));
 					break;
 				case Keys.C:
@@ -431,16 +435,11 @@ public class GameScreen implements Screen {
 
 			projectileTimer1 = projectileTimer2;
 		}
-	// end 
-		/*
-		if (Gdx.input.justTouched()) {
-=======
-		// end
+
+
 		if (analyzer != null && Gdx.input.justTouched()) {
->>>>>>> 370b721ba6ec6543b2da9e14be564e6a5f451980
-			analyzer.togglePlay();
+			//analyzer.togglePlay();
 		}
-		 */
 		
 		debugRenderer.render(world, camera.combined);
 
