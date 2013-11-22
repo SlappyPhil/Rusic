@@ -408,10 +408,12 @@ public class GameScreen implements Screen {
 			projectileTimer1 = projectileTimer2;
 		}
 	// end 
+		/*
 		if (Gdx.input.justTouched()) {
 			analyzer.togglePlay();
 		}
-
+		 */
+		
 		debugRenderer.render(world, camera.combined);
 
 		// how much computing power goes towards physics engine

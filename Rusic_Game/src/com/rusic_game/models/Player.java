@@ -15,15 +15,16 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.rusic_game.controllers.PlayerController;
 import com.rusic_game.models.helper.CustomUserData;
 
-public class Player extends InputAdapter {
+public class Player extends PlayerController {
 
 	private Body body;
 	private Fixture fixture;
 	public final float WIDTH, HEIGHT;
 	private Vector2 velocity = new Vector2();
-	private float movementForce = 400, airResistance = 5, jumpPower = 40;
+	//private float movementForce, airResistance, jumpPower;
 	private boolean hitBoundary;
 	private boolean invincible = false;
 	private boolean collisionPause = false;
@@ -33,6 +34,7 @@ public class Player extends InputAdapter {
 	public Player(World world, float x, float y, float width) {
 		WIDTH = width;
 		HEIGHT = width * 2;
+		velocity = super.velocity;
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
@@ -92,50 +94,16 @@ public class Player extends InputAdapter {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		switch (keycode) {
-		case Keys.LEFT:
-			velocity.x = -movementForce;
-			break;
-		case Keys.RIGHT:
-			velocity.x = movementForce;
-			break;
-		case Keys.UP:
-			velocity.y = movementForce;
-			break;
-		case Keys.DOWN:
-			velocity.y = -movementForce;
-			break;
-
-		// TODO remove this case
-
-		default:
-			return false;
-		}
-		return true;
+		return super.keyDown(keycode);
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		switch (keycode) {
-		case Keys.LEFT:
-			velocity.x = airResistance;
-			break;
-		case Keys.RIGHT:
-			velocity.x = airResistance;
-			break;
-		case Keys.UP:
-			velocity.y = airResistance;
-			break;
-		case Keys.DOWN:
-			velocity.y = airResistance;
-			break;
-
-		// TODO remove this case
-
-		default:
-			return false;
-		}
-		return true;
+		return super.keyUp(keycode);
+	}
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button){
+		return super.touchDown(screenX, screenY, pointer, button, body);
 	}
 
 	public float getRestitution() {

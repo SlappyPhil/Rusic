@@ -1,3 +1,6 @@
 DEATHS: 1
 POWERUPS: 1
 DISTANCE: 1
+
+Test Song 1
+10
