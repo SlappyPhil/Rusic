@@ -412,9 +412,13 @@ public class GameScreen implements Screen {
 			// triangle = new Triangles(world);
 			// triangle.update();
 			// }
-			else if ((randomInt >= 60) && (randomInt < 80)) {
-				// iPowerUp = new InvincibilityPowerUp(world, 0.2f);
-				// iPowerUp.update();
+			else if ((randomInt >= 90) && (randomInt < 95)) {
+				iPowerUp = new InvincibilityPowerUp(world, 0.2f);
+				iPowerUp.update();
+			}
+			else if ((randomInt >= 95) && (randomInt < 100)) {
+				bPowerUp = new BombPowerUp(world, 0.3f);
+				bPowerUp.update();
 			}
 
 			projectileTimer1 = projectileTimer2;
