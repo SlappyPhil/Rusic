@@ -57,7 +57,7 @@ public class GameScreen implements Screen {
 	private Box2DDebugRenderer debugRenderer;
 	private OrthographicCamera camera;
 	private List<Body> bodiesToRemove;
-	
+
 	static public int score;
 	private int currentScore;
 	private float decreaseScore = 0.9f;
@@ -75,9 +75,9 @@ public class GameScreen implements Screen {
 	private Rusic_Game game;
 	private AudioAnalyzer analyzer;
 	public String musicPath;
-	
+
 	public String difficulty;
-	
+
 	private Array<Circles> circles = new Array<Circles>();
 	private Circles circle;
 	private Squares square;
@@ -86,26 +86,31 @@ public class GameScreen implements Screen {
 	private BombPowerUp bPowerUp;
 
 	private float circleSize = 5;
-	
-	private long projectileTimer1= 0;
-	private long projectileTimer2 = 0 ;
+
+	private long projectileTimer1 = 0;
+	private long projectileTimer2 = 0;
 
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.spriteBatch = spriteBatch;
 		this.game = game;
-	    bitmapFontName = new BitmapFont();
+		bitmapFontName = new BitmapFont(Gdx.files.internal("font/white32.fnt.txt"));
+		timer = new Timer();
+		timer.schedule(new Timer.Task() {
+
+			public void run() {
+				score += 10;
+				System.out.println(score);
+			}
+		}, 0, 0.5f);
 	}
 
-	public void score()
-	{
-		
+	public void score() {
+
 	}
-	
+
 	@Override
-	public void show() 
-	{
-		if (musicPath != null) 
-		{
+	public void show() {
+		if (musicPath != null) {
 			analyzer = new AudioAnalyzer(musicPath, game.isAndroid);
 		} else
 			analyzer = null;
@@ -117,20 +122,9 @@ public class GameScreen implements Screen {
 
 		player = new Player(world, 0, 1, 1);
 		visualizer = new Visualizer(world, analyzer, game);
-		
+
 		score = 0;
-	    scoreName = "score: 0";
-		
-		timer = new Timer();
-	    timer.schedule(new Timer.Task() {
-			
-            public void run()
-            {
-                score+=10;
-            	System.out.println(score);
-            }
-        }, 0, 0.5f);
-	    
+		scoreName = "score: 0";
 
 		spriteBatch = new SpriteBatch();
 		Gdx.input.setInputProcessor(new InputMultiplexer(new InputAdapter() {
@@ -158,7 +152,7 @@ public class GameScreen implements Screen {
 					iPowerUp = new InvincibilityPowerUp(world, 0.2f);
 					iPowerUp.update();
 					break;
-					
+
 				case Keys.B:
 					bPowerUp = new BombPowerUp(world, 0.2f);
 					bPowerUp.update();
@@ -183,7 +177,8 @@ public class GameScreen implements Screen {
 
 		// ground shape
 		ChainShape groundShape = new ChainShape();
-		groundShape.createChain(new Vector2[] { new Vector2(-50, -14.3f), new Vector2(50, -14.3f) });
+		groundShape.createChain(new Vector2[] { new Vector2(-50, -14.3f),
+				new Vector2(50, -14.3f) });
 
 		// fixture definition
 		fixtureDef.shape = groundShape;
@@ -202,7 +197,8 @@ public class GameScreen implements Screen {
 		charDef.position.set(0, 0);
 
 		ChainShape topShape = new ChainShape();
-		topShape.createChain(new Vector2[] { new Vector2(-50, 14.3f), new Vector2(50, 14.3f) });
+		topShape.createChain(new Vector2[] { new Vector2(-50, 14.3f),
+				new Vector2(50, 14.3f) });
 
 		// fixture definition
 		fixtureDef.shape = topShape;
@@ -221,7 +217,8 @@ public class GameScreen implements Screen {
 		charDef.position.set(0, 0);
 
 		ChainShape leftShape = new ChainShape();
-		leftShape.createChain(new Vector2[] { new Vector2(-26, 50), new Vector2(-26, -50) });
+		leftShape.createChain(new Vector2[] { new Vector2(-26, 50),
+				new Vector2(-26, -50) });
 
 		// fixture definition
 		fixtureDef.shape = leftShape;
@@ -238,7 +235,8 @@ public class GameScreen implements Screen {
 		charDef.position.set(0, 0);
 
 		ChainShape rightShape = new ChainShape();
-		rightShape.createChain(new Vector2[] { new Vector2(26, 50), new Vector2(26, -50) });
+		rightShape.createChain(new Vector2[] { new Vector2(26, 50),
+				new Vector2(26, -50) });
 
 		// fixture definition
 		fixtureDef.shape = rightShape;
@@ -290,82 +288,94 @@ public class GameScreen implements Screen {
 			public void beginContact(Contact contact) {
 				final Body bodyA = contact.getFixtureA().getBody();
 				final Body bodyB = contact.getFixtureB().getBody();
-				final CustomUserData aData = (CustomUserData) bodyA.getUserData();
-				final CustomUserData bData = (CustomUserData) bodyB.getUserData();
-				
-				//OBJECTS THAT HIT THE LEFT BOUNDARY
-				if (aData.getUserDef().equals("left") && bData.getUserDef().equals("projectile")) {
+				final CustomUserData aData = (CustomUserData) bodyA
+						.getUserData();
+				final CustomUserData bData = (CustomUserData) bodyB
+						.getUserData();
+
+				// OBJECTS THAT HIT THE LEFT BOUNDARY
+				if (aData.getUserDef().equals("left")
+						&& bData.getUserDef().equals("projectile")) {
 					bodiesToRemove.add(bodyB);
-				} else if (aData.getUserDef().equals("projectile") && bData.getUserDef().equals("left")) {
+				} else if (aData.getUserDef().equals("projectile")
+						&& bData.getUserDef().equals("left")) {
 					bodiesToRemove.add(bodyA);
 				}
-				if (aData.getUserDef().equals("left") && bData.getUserDef().equals("iPowerUp")) {
+				if (aData.getUserDef().equals("left")
+						&& bData.getUserDef().equals("iPowerUp")) {
 					bodiesToRemove.add(bodyB);
-				} else if (aData.getUserDef().equals("iPowerUp") && bData.getUserDef().equals("left")) {
+				} else if (aData.getUserDef().equals("iPowerUp")
+						&& bData.getUserDef().equals("left")) {
 					bodiesToRemove.add(bodyA);
 				}
-				if (aData.getUserDef().equals("left") && bData.getUserDef().equals("bPowerUp")) {
+				if (aData.getUserDef().equals("left")
+						&& bData.getUserDef().equals("bPowerUp")) {
 					bodiesToRemove.add(bodyB);
-				} else if (aData.getUserDef().equals("bPowerUp") && bData.getUserDef().equals("left")) {
+				} else if (aData.getUserDef().equals("bPowerUp")
+						&& bData.getUserDef().equals("left")) {
 					bodiesToRemove.add(bodyA);
 				}
-				
-				//OBJECTS THAT HIT THE PLAYER
-				if ((aData.getUserDef().equals("player") && bData.getUserDef().equals("boundary"))
-						|| (aData.getUserDef().equals("boundary") && bData.getUserDef().equals("player"))) {
+
+				// OBJECTS THAT HIT THE PLAYER
+				if ((aData.getUserDef().equals("player") && bData.getUserDef()
+						.equals("boundary"))
+						|| (aData.getUserDef().equals("boundary") && bData
+								.getUserDef().equals("player"))) {
 					// set variable in player to note a hit, update function
 					// handles post events
 					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					ScoreScreen.deaths++;
 					player.setHitBoundary(true);
 				}
-				if (aData.getUserDef().equals("player") && bData.getUserDef().equals("projectile")) {
+				if (aData.getUserDef().equals("player")
+						&& bData.getUserDef().equals("projectile")) {
 					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyB);
 					ScoreScreen.deaths++;
-				} else if (aData.getUserDef().equals("projectile") && bData.getUserDef().equals("player")) {
+				} else if (aData.getUserDef().equals("projectile")
+						&& bData.getUserDef().equals("player")) {
 					score = diffiltyMultiplier * (int) (score * decreaseScore);
 					bodiesToRemove.add(bodyA);
 					ScoreScreen.deaths++;
 				}
-				if (aData.getUserDef().equals("iPowerUp") && bData.getUserDef().equals("player")) {
+				if (aData.getUserDef().equals("iPowerUp")
+						&& bData.getUserDef().equals("player")) {
 					player.setInvincible(true);
 					ScoreScreen.powerups++;
 					bodiesToRemove.add(bodyA);
-				} else if (bData.getUserDef().equals("iPowerUp") && aData.getUserDef().equals("player")) {
+				} else if (bData.getUserDef().equals("iPowerUp")
+						&& aData.getUserDef().equals("player")) {
 					// set player invincible to true
 					player.setInvincible(true);
 					ScoreScreen.powerups++;
 					bodiesToRemove.add(bodyB);
 				}
-				if (aData.getUserDef().equals("bPowerUp") && bData.getUserDef().equals("player")) {
+				if (aData.getUserDef().equals("bPowerUp")
+						&& bData.getUserDef().equals("player")) {
 					deleteAllProjectiles();
 					ScoreScreen.powerups++;
 					bodiesToRemove.add(bodyA);
-				} else if (bData.getUserDef().equals("bPowerUp") && aData.getUserDef().equals("player")) {
+				} else if (bData.getUserDef().equals("bPowerUp")
+						&& aData.getUserDef().equals("player")) {
 					// set player invincible to true
 					deleteAllProjectiles();
 					ScoreScreen.powerups++;
 					bodiesToRemove.add(bodyB);
 				}
-				
-				//OTHER
+
+				// OTHER
 			}
 		});
 	}
 
-	private void deleteAllProjectiles()
-	{
+	private void deleteAllProjectiles() {
 		Array<Body> bodies = new Array<Body>();
 		world.getBodies(bodies);
-		
-		for (Body body : bodies)
-		{
-			if (body.getUserData() instanceof CustomUserData)
-			{
+
+		for (Body body : bodies) {
+			if (body.getUserData() instanceof CustomUserData) {
 				CustomUserData cud = (CustomUserData) body.getUserData();
-				if (cud.getUserDef().equals("projectile"))
-				{
+				if (cud.getUserDef().equals("projectile")) {
 					bodiesToRemove.add(body);
 				}
 			}
@@ -376,40 +386,51 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		visualizer.update();
 		player.update();
-	// Time interval generation of enemies/power ups
+		// Time interval generation of enemies/power ups
 		Random randomGenerator = new Random();
-	    int randomInt = randomGenerator.nextInt(100);
-	    int timeModifier=2500;
-	    if(difficulty.equals("Easy")) timeModifier = 2000;
-	    if(difficulty.equals("Normal")) timeModifier = 1000;
-	    if(difficulty.equals("Hard")) timeModifier = 500;
+		int randomInt = randomGenerator.nextInt(100);
+		int timeModifier = 2500;
+		if (difficulty.equals("Easy"))
+			timeModifier = 2000;
+		if (difficulty.equals("Normal"))
+			timeModifier = 1000;
+		if (difficulty.equals("Hard"))
+			timeModifier = 500;
 		projectileTimer2 = TimeUtils.millis();
-		if((projectileTimer2-projectileTimer1)>= timeModifier){
-			if((randomInt >= 0) && (randomInt< 20) ){
+		if ((projectileTimer2 - projectileTimer1) >= timeModifier) {
+			if ((randomInt >= 0) && (randomInt < 20)) {
 				circle = new Circles(world, 1);
 				circle.update();
-			}
-			else if((randomInt >= 20) && (randomInt< 60) ){
+			} else if ((randomInt >= 20) && (randomInt < 60)) {
 				square = new Squares(world);
 				square.update();
 			}
-			//else if((randomInt >= 40) && (randomInt< 60) ){
-				//triangle = new Triangles(world);
-				//triangle.update();
-			//}
-			else if((randomInt >= 60) && (randomInt< 80) ){
-				//iPowerUp = new InvincibilityPowerUp(world, 0.2f);
-				//iPowerUp.update();
+			// else if((randomInt >= 40) && (randomInt< 60) ){
+			// triangle = new Triangles(world);
+			// triangle.update();
+			// }
+			else if ((randomInt >= 90) && (randomInt < 95)) {
+				iPowerUp = new InvincibilityPowerUp(world, 0.2f);
+				iPowerUp.update();
 			}
-			
+			else if ((randomInt >= 95) && (randomInt < 100)) {
+				bPowerUp = new BombPowerUp(world, 0.3f);
+				bPowerUp.update();
+			}
+
 			projectileTimer1 = projectileTimer2;
 		}
+<<<<<<< HEAD
 	// end 
 		/*
 		if (Gdx.input.justTouched()) {
+=======
+		// end
+		if (analyzer != null && Gdx.input.justTouched()) {
+>>>>>>> 370b721ba6ec6543b2da9e14be564e6a5f451980
 			analyzer.togglePlay();
 		}
 		 */
@@ -427,13 +448,23 @@ public class GameScreen implements Screen {
 		}
 		// controller.update(delta);
 		// renderer.render();
+
+		if(analyzer != null)
+		{
+		spriteBatch.begin();
+	
+			bitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			bitmapFontName.draw(spriteBatch, Integer.toString(score), 25, 25);
 		
-		if(analyzer != null && analyzer.playing == false){
+		spriteBatch.end();
+		}
+		
+		if (analyzer != null && analyzer.playing == false) {
 			timer.clear();
-			timer = null;
+			timer.stop();
 			ScoreScreen.updateScore(score);
 			ScoreScreen.exportData();
-			game.setScreen(game.musicSelectScreen);
+			game.setScreen(game.mainScreen);
 		}
 
 	}
@@ -453,6 +484,11 @@ public class GameScreen implements Screen {
 	public void hide() {
 		if (analyzer != null)
 			analyzer.stop();
+		if (timer != null) {
+			timer.clear();
+			timer.stop();
+		}
+		score = 0;
 		Gdx.input.setInputProcessor(null);
 	}
 

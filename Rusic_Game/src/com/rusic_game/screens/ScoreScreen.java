@@ -30,7 +30,7 @@ import com.rusic_game.Rusic_Game;
 		public static ArrayList<String> songs;
 		public static ArrayList<Integer> highscores;
 		public static String songHolder;
-
+		
 		//CONSTRUCTOR
 		public ScoreScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 			this.game = game;
@@ -98,7 +98,7 @@ import com.rusic_game.Rusic_Game;
 			int count = 0;
 			for(String s : songs){
 				if(s.compareTo(songHolder) == 0){
-					highscores.set(count, score);
+					if(highscores.get(count) < score) highscores.set(count, score);
 					return;
 				}
 				count++;

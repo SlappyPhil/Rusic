@@ -1,6 +1,21 @@
+<<<<<<< HEAD
 DEATHS: 1
 POWERUPS: 1
 DISTANCE: 1
 
 Test Song 1
 10
+=======
+DEATHS: 35
+POWERUPS: 17
+DISTANCE: 0
+
+NONE
+0
+
+Test Song 1
+350
+
+Test Song 2
+1205
+>>>>>>> 370b721ba6ec6543b2da9e14be564e6a5f451980

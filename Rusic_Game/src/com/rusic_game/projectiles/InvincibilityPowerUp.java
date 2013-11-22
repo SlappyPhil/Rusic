@@ -11,17 +11,17 @@ import com.rusic_game.models.helper.CustomUserData;
 
 public class InvincibilityPowerUp {
 
-	private Body body;
+        private Body body;
     private Fixture fixture;
     public float powerUpRadius; 
     private float  randPosY;
     private float  yMax= 10,  yMin = -10;
 
     public InvincibilityPowerUp( World world, float radius) {
-    	   powerUpRadius = radius;
-    	    
-   	       randPosY = yMin + (float)(Math.random() * ((yMax - yMin) + 1.0));
-   	    
+               powerUpRadius = radius;
+                
+                  randPosY = yMin + (float)(Math.random() * ((yMax - yMin) + 1.0));
+               
            BodyDef bodyDef = new BodyDef();
            bodyDef.type = BodyType.DynamicBody;
            bodyDef.position.set(25f, randPosY);
@@ -29,7 +29,7 @@ public class InvincibilityPowerUp {
             
            CircleShape circleShape = new CircleShape();
             
-			circleShape.setRadius(powerUpRadius);
+                        circleShape.setRadius(powerUpRadius);
 
             FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = circleShape;
@@ -39,7 +39,7 @@ public class InvincibilityPowerUp {
             fixtureDef.isSensor = false;
             
             
-			
+                        
             body = world.createBody(bodyDef);
             fixture = body.createFixture(fixtureDef);
             
@@ -56,7 +56,7 @@ public class InvincibilityPowerUp {
          body.setGravityScale(0);
          
          
-    	 // body.applyLinearImpulse(-75, 5, body.getWorldCenter().x, body.getWorldCenter().y);
+             // body.applyLinearImpulse(-75, 5, body.getWorldCenter().x, body.getWorldCenter().y);
   }
     
 
@@ -68,5 +68,5 @@ public Fixture getFixture() {
         return fixture;
 }
 
-	
+        
 }
