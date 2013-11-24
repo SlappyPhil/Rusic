@@ -2,4 +2,5 @@
 
 *.class
 /Rusic_game/bin
-/Rusic_Game-desktop/scores.txt
+*.txt
+/Rusic_Game-android/bin
