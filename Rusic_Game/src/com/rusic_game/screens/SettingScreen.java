@@ -34,12 +34,12 @@ public class SettingScreen implements Screen{
 
 		spriteBatch.begin(); 
 		white.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		int runner = height-60;
+		int runner = height-30;
 		int count = 0;
 		for(String s : ScoreScreen.songs){
 			white.draw(spriteBatch, (ScoreScreen.songs.get(count) + " - " + ScoreScreen.highscores.get(count)), 0, runner);
 			count++;
-			runner += 30;
+			runner -= 30;
 		}
 		spriteBatch.end();
 	}
