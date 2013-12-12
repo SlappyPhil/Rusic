@@ -41,6 +41,10 @@ public class SettingScreen implements Screen{
 			count++;
 			runner -= 30;
 		}
+		runner -=60;
+		white.draw(spriteBatch, ("Deaths - " + ScoreScreen.deaths), 0, runner);
+		runner -= 30;
+		white.draw(spriteBatch, ("Powerups - " + ScoreScreen.powerups), 0, runner);	
 		spriteBatch.end();
 	}
 	@Override
