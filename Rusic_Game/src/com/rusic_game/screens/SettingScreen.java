@@ -34,19 +34,42 @@ public class SettingScreen implements Screen{
 
 		spriteBatch.begin(); 
 		white.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		int runner = height-30;
+		int runner = height-15;
 		int count = 0;
 		for(String s : ScoreScreen.songs){
 			white.draw(spriteBatch, (ScoreScreen.songs.get(count) + " - " + ScoreScreen.highscores.get(count)), 0, runner);
 			count++;
 			runner -= 30;
 		}
-		runner -=60;
-		white.draw(spriteBatch, ("Deaths - " + ScoreScreen.deaths), 0, runner);
-		runner -= 30;
-		white.draw(spriteBatch, ("Powerups - " + ScoreScreen.powerups), 0, runner);	
+		runner = height-330;
+		white.draw(spriteBatch, ("Deaths - " + ScoreScreen.deaths), width/3-150, runner);
+		white.draw(spriteBatch, deathCalc(), width/3-150, runner-250);
+		white.draw(spriteBatch, ("Powerups - " + ScoreScreen.powerups), (2*width)/3-150, runner);
+		white.draw(spriteBatch, powerupCalc(), (2*width)/3-150, runner-250);
+		
 		spriteBatch.end();
 	}
+	
+	public String deathCalc(){
+		String str = "";
+		if(ScoreScreen.deaths < 50) str = "Black and Blue";
+		else if(ScoreScreen.deaths < 100) str = "Hell's Citizen";
+		else if(ScoreScreen.deaths < 500) str = "Overseer";
+		else if(ScoreScreen.deaths < 1000) str = "Eviscerator";
+		else if(ScoreScreen.deaths < 10000) str = "Lord Death";
+		return str;
+	}
+	
+	public String powerupCalc(){
+		String str = "";
+		if(ScoreScreen.powerups < 30) str = "Average Joe";
+		else if(ScoreScreen.powerups < 60) str = "Powerup Junkie";
+		else if(ScoreScreen.powerups < 120) str = "Mutant";
+		else if(ScoreScreen.powerups < 500) str = "Superhuman";
+		else if(ScoreScreen.powerups < 1500) str = "Deity";
+		return str;
+	}
+	
 	@Override
 	public void resize(int width, int height) {
 		this.width = width;
