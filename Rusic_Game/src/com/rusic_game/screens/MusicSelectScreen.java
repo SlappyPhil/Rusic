@@ -82,9 +82,11 @@ public class MusicSelectScreen implements Screen{
 			musicinfo = new ArrayList<String>();
 			musicpath.add("audio/tester.mp3");
 			musicpath.add("audio/tester1.mp3");
+			musicpath.add("audio/short.mp3");
 			musicinfo.add("NONE");
 			musicinfo.add("Test Song 1");
 			musicinfo.add("Test Song 2");
+			musicinfo.add("Short");
 		}
 	}
 	@Override
