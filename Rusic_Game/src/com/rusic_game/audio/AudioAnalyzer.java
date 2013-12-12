@@ -7,13 +7,14 @@ import com.badlogic.gdx.audio.io.Mpg123Decoder;
 import com.badlogic.gdx.files.FileHandle;
 
 public class AudioAnalyzer {
-        FileHandle externalFile;
+		FileHandle externalFile;
         KissFFT fft;
         short[] samples;
         float[] spectrum;
         Mpg123Decoder decoder;
         AudioDevice device;
         public boolean playing = false;
+        public boolean running = true;
         public boolean isAndroid;
         
         public AudioAnalyzer(String file, boolean isAndroid) {
@@ -42,6 +43,7 @@ public class AudioAnalyzer {
                                 // write the samples to the AudioDevice
                                 device.writeSamples(samples, 0, readSamples);
                         }
+                        running = false;
                 }
         }
         
