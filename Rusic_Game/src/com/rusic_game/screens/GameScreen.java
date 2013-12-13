@@ -99,7 +99,7 @@ public class GameScreen implements Screen {
 	private long projectileTimer1 = 0;
 	private long projectileTimer2 = 0;
 
-	public boolean paused = false;
+	//public boolean paused = false;
 	
 	public GameScreen(Rusic_Game game, SpriteBatch spriteBatch) {
 		this.spriteBatch = spriteBatch;
@@ -110,7 +110,7 @@ public class GameScreen implements Screen {
 		timer.schedule(new Timer.Task() {
 
 			public void run() {
-				if(paused == false) score += 10;
+				score += 10;
 				System.out.println(score);
 			}
 		}, 0, 0.5f);
@@ -174,11 +174,11 @@ public class GameScreen implements Screen {
 					bPowerUp.update();
 					break;
 					
-				 case Keys.P:
-					analyzer.togglePlay();
-					if(paused == false) paused = true;
-					else paused = false;
-			        break;
+//				 case Keys.P:
+//					analyzer.togglePlay();
+//					if(paused == false) paused = true;
+//					else paused = false;
+//			        break;
 				}
 				return false;
 			}
@@ -416,15 +416,15 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		 if((analyzer != null) && (analyzer.running != true) && (analyzer.playing != true) && (paused == false)){
+		 if((analyzer != null) && (analyzer.running != true) && (analyzer.playing != true)){
 			       timer.clear();
 			       timer.stop();
 			       ScoreScreen.updateScore(score);
 			       ScoreScreen.exportData();
 			       game.setScreen(new MainScreen(game, spriteBatch));
 			     }
-		 if(paused == false) visualizer.update();
-		 if(paused == false) player.update();
+		 visualizer.update();
+		 player.update();
 		// Time interval generation of enemies/power ups
 		Random randomGenerator = new Random();
 		int randomInt = randomGenerator.nextInt(100);
@@ -438,23 +438,23 @@ public class GameScreen implements Screen {
 		projectileTimer2 = TimeUtils.millis();
 		if ((projectileTimer2 - projectileTimer1) >= timeModifier) {
 			if ((randomInt >= 0) && (randomInt < 40)) {
-				 if(paused == false) circle = new Circles(world);
-				 if(paused == false) circle.update();
+				 circle = new Circles(world);
+				 circle.update();
 			} else if ((randomInt >= 40) && (randomInt < 80)) {
-				if(paused == false) square = new Squares(world);
-				if(paused == false) square.update();
+				square = new Squares(world);
+				square.update();
 			 }
 			 else if((randomInt >= 80) && (randomInt< 90) ){
-				 if(paused == false) triangle = new Triangles(world);
-				 if(paused == false) triangle.update();
+				 triangle = new Triangles(world);
+				 triangle.update();
 			}
 			else if ((randomInt >= 90) && (randomInt < 95)) {
-				if(paused == false) iPowerUp = new InvincibilityPowerUp(world, 0.2f);
-				if(paused == false) iPowerUp.update();
+				iPowerUp = new InvincibilityPowerUp(world, 0.2f);
+				iPowerUp.update();
 			}
 			else if ((randomInt >= 95) && (randomInt < 100)) {
-				if(paused == false) bPowerUp = new BombPowerUp(world, 0.3f);
-				if(paused == false) bPowerUp.update();
+				bPowerUp = new BombPowerUp(world, 0.3f);
+				bPowerUp.update();
 			}
 
 			projectileTimer1 = projectileTimer2;
@@ -464,7 +464,7 @@ public class GameScreen implements Screen {
 		debugRenderer.render(world, camera.combined);
 
 		// how much computing power goes towards physics engine
-		if(paused == false) world.step(TIMESTEP, VELOCITYITERATIONS, POSITIONITERATIONS);
+		world.step(TIMESTEP, VELOCITYITERATIONS, POSITIONITERATIONS);
 
 		if (!bodiesToRemove.isEmpty()) {
 			for (Body b : bodiesToRemove) {
