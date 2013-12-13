@@ -72,13 +72,26 @@ public class PlayerController extends InputAdapter{
 	
 	public boolean touchDown(int screenX, int screenY, int pointer, int button, Body body){
 		System.out.println("Screen X: " + screenX + " and Screen Y: " + screenY);
-		System.out.println("Blody X: " + body.getPosition().x + " and Body Y: " + body.getPosition().y);
+		System.out.println("Body X: " + body.getPosition().x + " and Body Y: " + body.getPosition().y);
 		System.out.println("New Screen X: " + fromPTM(screenX, screenY).x + " Y: " + fromPTM(screenX, screenY).y);
 		
-		body.setTransform(fromPTM(screenX, screenY), 0);
+		//body.setTransform(fromPTM(screenX, screenY), 0);
+		
+		velocity.x = (fromPTM(screenX, screenY).x - body.getPosition().x) * (movementForce/50);
+		velocity.y = (fromPTM(screenX, screenY).y - body.getPosition().y) * (movementForce/50);
+		body.setLinearVelocity(velocity.x/10, velocity.y/10);
 		
 		return true;
 	}
+	
+	public boolean touchDragged(int screenX, int screenY, int pointer, Body body) {
+		velocity.x = (fromPTM(screenX, screenY).x - body.getPosition().x) * (movementForce/15);
+		velocity.y = (fromPTM(screenX, screenY).y - body.getPosition().y) * (movementForce/15);
+		body.setLinearVelocity(velocity.x/10, velocity.y/10);
+		
+		return true;
+    }
+	
 	
 	private static Vector2 fromPTM(int screenX, int screenY){
 		//1280, 720

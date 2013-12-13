@@ -50,22 +50,30 @@ public class MainScreen implements Screen, InputProcessor {
 		Gdx.input.setInputProcessor(stage);
 		
 		//CREATE ATLAS, TABLE, SKIN
-		atlas = new TextureAtlas("UI/atlas.pack.txt");
+		atlas = new TextureAtlas("UI/buttons/button.pack");
 		skin = new Skin(atlas);
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		white = new BitmapFont(Gdx.files.internal("font/white32.fnt.txt"), false);
 		
 		//CREATE BUTTONS, BUTTONSTYLES
-		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = skin.getDrawable("button.up");
-		textButtonStyle.down = skin.getDrawable("button.down");
-		textButtonStyle.pressedOffsetX = 1;
-		textButtonStyle.pressedOffsetY = -1;
-		textButtonStyle.font = white;
-		textButtonStyle.fontColor = Color.BLACK;
-		buttonPlay = new TextButton("PLAY", textButtonStyle);
-		buttonSettings = new TextButton("SCORES", textButtonStyle);
+		TextButtonStyle textPlayButtonStyle = new TextButtonStyle();
+		textPlayButtonStyle.up = skin.getDrawable("playUP");
+		textPlayButtonStyle.down = skin.getDrawable("playDOWN");
+		textPlayButtonStyle.pressedOffsetX = 1;
+		textPlayButtonStyle.pressedOffsetY = -1;
+		textPlayButtonStyle.font = white;
+		textPlayButtonStyle.fontColor = Color.BLACK;
+		
+		TextButtonStyle textScoreButtonStyle = new TextButtonStyle();
+		textScoreButtonStyle.up = skin.getDrawable("scoreUP");
+		textScoreButtonStyle.down = skin.getDrawable("ScoreDOWN");
+		textScoreButtonStyle.pressedOffsetX = 1;
+		textScoreButtonStyle.pressedOffsetY = -1;
+		textScoreButtonStyle.font = white;
+		textScoreButtonStyle.fontColor = Color.BLACK;
+		buttonPlay = new TextButton("",textPlayButtonStyle);
+		buttonSettings = new TextButton("",textScoreButtonStyle);
 		
 		
 		//PLAY BUTTON FUNCTIONALITY

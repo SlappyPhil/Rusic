@@ -14,6 +14,7 @@ public class AudioAnalyzer {
         Mpg123Decoder decoder;
         AudioDevice device;
         public boolean playing = false;
+        public boolean running = true;
         public boolean isAndroid;
         
         public AudioAnalyzer(String file, boolean isAndroid) {
@@ -42,6 +43,8 @@ public class AudioAnalyzer {
                                 // write the samples to the AudioDevice
                                 device.writeSamples(samples, 0, readSamples);
                         }
+                        running = false;
+                        playing = false;
                 }
         }
         

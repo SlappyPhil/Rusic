@@ -2,6 +2,8 @@ package com.rusic_game.screens;
 
 import java.util.ArrayList;
 
+import javax.swing.text.html.StyleSheet;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -35,10 +37,11 @@ public class MusicSelectScreen implements Screen{
 	private TextButton buttonPlay;
 	private SelectBox musicSelectBox;
 	private BitmapFont white;
-	private Skin skin;
+	public static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
+	private Skin skin, skin2;
 	private Table table;
 	private Stage stage;
-	private TextureAtlas atlas;
+	private TextureAtlas atlas, atlas2;
 	private Label heading;
 	private SelectBox.SelectBoxStyle style;
 	private ScrollPane.ScrollPaneStyle scrollStyle;
@@ -116,14 +119,25 @@ public class MusicSelectScreen implements Screen{
 		Gdx.input.setInputProcessor(stage);
 		
 		//CREATE ATLAS, TABLE, SKIN
-		atlas = new TextureAtlas("UI/atlas.pack.txt");
+		atlas = new TextureAtlas("UI/buttons2/button2.pack");
+		atlas2 = new TextureAtlas("UI/buttons/button.pack");
 		skin = new Skin(atlas);
+		skin2 = new Skin(atlas2);
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		white = new BitmapFont(Gdx.files.internal("font/white32.fnt.txt"), false);
+		white = new BitmapFont(Gdx.files.internal("font/yellowtailBlack.fnt"), false);
 		
 		
 		//CREATE BUTTONS, BUTTONSTYLES
+		TextButtonStyle textButtonStyle2 = new TextButtonStyle();
+		textButtonStyle2.up = skin2.getDrawable("playUP");
+		textButtonStyle2.down = skin2.getDrawable("playDOWN");
+		textButtonStyle2.pressedOffsetX = 1;
+		textButtonStyle2.pressedOffsetY = -1;
+		textButtonStyle2.font = white;
+		textButtonStyle2.fontColor = Color.BLACK;
+		
+		
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		textButtonStyle.up = skin.getDrawable("button.up");
 		textButtonStyle.down = skin.getDrawable("button.down");
@@ -131,13 +145,14 @@ public class MusicSelectScreen implements Screen{
 		textButtonStyle.pressedOffsetY = -1;
 		textButtonStyle.font = white;
 		textButtonStyle.fontColor = Color.BLACK;
-		buttonPlay = new TextButton("START", textButtonStyle);
+		buttonPlay = new TextButton("", textButtonStyle2);
 		ScrollPane.ScrollPaneStyle scrollStyle = new ScrollPane.ScrollPaneStyle(skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"));
 		List.ListStyle listStyle = new List.ListStyle(white, Color.BLACK, Color.GRAY, skin.getDrawable("button.up"));
 		style = new SelectBox.SelectBoxStyle(white, Color.BLACK, skin.getDrawable("button.up"), scrollStyle, listStyle);
 		
 		musicSelectBox = new SelectBox(musicinfo.toArray(), style);
-
+		
+		
 		//difficulty addition
 				//ScrollPane.ScrollPaneStyle dif_scrollStyle = new ScrollPane.ScrollPaneStyle(skin.getDrawable("button.up"), skin.getDrawable("button.up"), skin.getDrawable("button.up"),skin.getDrawable("button.up"), skin.getDrawable("button.up"));
 				//List.ListStyle dif_listStyle = new List.ListStyle(dif_white, Color.BLACK, Color.GRAY, dif_skin.getDrawable("button.up"));
