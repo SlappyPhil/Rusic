@@ -136,6 +136,10 @@ public class Player extends PlayerController {
 	public boolean touchDown(int screenX, int screenY, int pointer, int button){
 		return super.touchDown(screenX, screenY, pointer, button, body);
 	}
+	
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		return super.touchDragged(screenX, screenY, pointer, body);
+    }
 
 	public float getRestitution() {
 		return fixture.getRestitution();
